@@ -4,15 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java学习, something for nothing">
+    <meta name="keywords" content="static, something for nothing">
     <meta name="description" content="
+/**
 
-package String_class;
-/*
-String 类被创建后其内容不可被更改。
- */
-public class String_app &amp;amp;#123;
-    public static void main(Stri">
+成员变量：
+1，静态成员变量，用static修饰，（属于类，在内存只加载一次，其实表征的
+是类中相较于实例成员变量来说，更具有一般化，即共有化的属性，相当于是归并中的归并）
+如实时在线人数
+一般使用类名.静态成员变量访问(A10">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -24,7 +24,7 @@ public class String_app &amp;amp;#123;
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java学习 | 欢抑</title>
+    <title>static | 欢抑</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -316,12 +316,12 @@ public class String_app &amp;amp;#123;
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java学习</h1>
+                    <h1 class="description center-align post-title">static</h1>
                 </div>
             </div>
         </div>
@@ -435,9 +435,13 @@ public class String_app &amp;amp;#123;
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/study/">
+                                <span class="chip bg-color">study</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -458,7 +462,7 @@ public class String_app &amp;amp;#123;
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-25
+                    2021-12-28
                 </div>
                 
 
@@ -467,7 +471,7 @@ public class String_app &amp;amp;#123;
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    450
+                    254
                 </div>
                 
 
@@ -484,60 +488,44 @@ public class String_app &amp;amp;#123;
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <img src="https://gitee.com/jyxzwd/blogpic/raw/master/img/1627009410695.png" style="zoom:67%;" />
+                <p><img src="https://gitee.com/jyxzwd/blogpic/raw/master/img/51ea33290796430a1cae451a6ef37f92.png"></p>
+<p>/**</p>
+<ul>
+<li><strong>成员变量</strong>：</li>
+<li>1，静态成员变量，<u>用static修饰，</u>（属于类，在内存只加载一次，其实表征的</li>
+<li><em>是类中相较于实例成员变量来说，更具有一般化，即共有化的属性，相当于是归并中的归并）</em></li>
+<li>如实时在线人数</li>
+<li>一般使用类名.静态成员变量访问(A101)</li>
+<li>2，实例成员变量（存在于每个对象当中）</li>
+<li>它表征的是对象所共有，但，但是，但是更为个性化的属性（如在线人中各个人的id，年龄等）</li>
+<li>一般使用：对象.实例成员变</li>
+</ul>
+<hr>
+<ul>
+<li><strong>成员方法</strong>（访问方式同成 员变量）</li>
+<li>1，静态成员方法，</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">static_app</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> String_class<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/*
-String 类被创建后其内容不可被更改。
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">String_app</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        String name <span class="token operator">=</span> <span class="token string">"测试"</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//"测试"存在于堆内存中的字符串常量池，name指向“测试”</span>
-        name <span class="token operator">+=</span> <span class="token string">"成功"</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//“成功”也被存于字符串常量池中；</span>
-        <span class="token comment" spellcheck="true">//经运算后的“测试成功”被重新存在于堆内存中，name指向“测试成功”，</span>
-        <span class="token comment" spellcheck="true">//每次String类每次修改都是产生并指向新的字符串对象，而原来的字符串对象还在常量池中</span>
-        <span class="token keyword">byte</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> b <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token number">97</span><span class="token punctuation">,</span><span class="token number">98</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
-        String s2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String s1 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-        String s3 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//以“”方式给出的字符串对象，在字符串 常量池中存储，且相同内容的只存储一份</span>
-        <span class="token comment" spellcheck="true">//而new出来的String储存在堆内存中</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token operator">==</span>s3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//==比较的是地址，而equals比较的是内容。</span>
-        String s4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"def"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//22行常见了两个对象，“def”双引号里的在常量池中中，new出来的对象在堆内存中</span>
-        String s5 <span class="token operator">=</span> <span class="token string">"def"</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//24行创建了0个对象，因为“def”已经在22行创建在常量池中，</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s5<span class="token operator">==</span>s4<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//s5指向常量池中的“def”，而s4指向堆</span>
-        String s6 <span class="token operator">=</span> <span class="token string">"mno"</span><span class="token punctuation">;</span>
-        String s7 <span class="token operator">=</span> <span class="token string">"m"</span><span class="token operator">+</span><span class="token string">'n'</span><span class="token operator">+</span><span class="token string">'o'</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s6<span class="token operator">==</span>s7<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//编译时s7会转换为“nmo”</span>
-        String s8 <span class="token operator">=</span> <span class="token string">"poi"</span><span class="token punctuation">;</span>
-        String s9 <span class="token operator">=</span> <span class="token string">"po"</span><span class="token punctuation">;</span>
-        String s10 <span class="token operator">=</span> <span class="token string">"i"</span><span class="token operator">+</span>s9<span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s10<span class="token operator">==</span>s8<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String  j <span class="token operator">=</span> <span class="token string">"langyu"</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>j<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//转换为字符数组</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>j<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">char</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> j<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//截取内容</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>j<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>j<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String y<span class="token operator">=</span> <span class="token string">",,R至死,,,不渝 ， love朗郁 ,居云岫，无欢抑"</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>y<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"至死不渝"</span><span class="token punctuation">,</span> <span class="token string">"居云岫"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>y<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"朗郁"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>y<span class="token punctuation">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span><span class="token string">"langyu"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String<span class="token punctuation">[</span><span class="token punctuation">]</span> x <span class="token operator">=</span> y<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> x<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span>  <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token operator">></span>b<span class="token operator">?</span>a<span class="token operator">:</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">learn</span> <span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name<span class="token operator">+</span><span class="token string">"niu"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        num<span class="token operator">--</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//(A101)</span>
+        static_app t1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">static_app</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>t1<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//A(102)</span>
+    
+        static_app<span class="token punctuation">.</span><span class="token function">getmax</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t1<span class="token punctuation">.</span><span class="token function">learn</span><span class="token punctuation">(</span><span class="token string">"cjj"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
 <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 
@@ -566,7 +554,7 @@ String 类被创建后其内容不可被更改。
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/12/25/index/">http://example.com/2021/12/25/index/</a>
+                    <a href="http://example.com/2021/12/28/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/java_static/%E6%96%B0%E5%BB%BA%E7%AC%94%E8%AE%B0/">http://example.com/2021/12/28/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/java_static/%E6%96%B0%E5%BB%BA%E7%AC%94%E8%AE%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -603,7 +591,11 @@ String 类被创建后其内容不可被更改。
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/study/">
+                                    <span class="chip bg-color">study</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -778,13 +770,13 @@ String 类被创建后其内容不可被更改。
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/12/25/index/">
+                <a href="/2021/12/28/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/java_static/%E6%96%B0%E5%BB%BA%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="java学习">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="static">
                         
-                        <span class="card-title">java学习</span>
+                        <span class="card-title">static</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -795,7 +787,7 @@ String 类被创建后其内容不可被更改。
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
                             </span>
                         <span class="publish-author">
                             
@@ -811,6 +803,14 @@ String 类被创建后其内容不可被更改。
                 </div>
 
                 
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/study/">
+                        <span class="chip bg-color">study</span>
+                    </a>
+                    
+                </div>
+                
             </div>
         </div>
         
@@ -820,13 +820,13 @@ String 类被创建后其内容不可被更改。
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/24/hello-world/">
+                <a href="/2021/12/26/egwords/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="遥远的相似性">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="english_learning">
                         
-                        <span class="card-title">遥远的相似性</span>
+                        <span class="card-title">english_learning</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -837,15 +837,27 @@ String 类被创建后其内容不可被更改。
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-26
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            jyx_ly
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Eglish-words/" class="post-category">
+                                    Eglish_words
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/study/">
+                        <span class="chip bg-color">study</span>
+                    </a>
+                    
                 </div>
                 
             </div>
