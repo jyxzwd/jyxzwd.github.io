@@ -4,23 +4,48 @@
   
     
     <entry>
-      <title>SLT_learn_gather</title>
-      <link href="/2022/03/06/SLT-learn/"/>
-      <url>/2022/03/06/SLT-learn/</url>
+      <title>PAT_BL_1015</title>
+      <link href="/2022/03/06/PAT-basic-level-1/"/>
+      <url>/2022/03/06/PAT-basic-level-1/</url>
       
-        <content type="html"><![CDATA[<h1 id="题目链接传送门"><a href="#题目链接传送门" class="headerlink" title="题目链接传送门"></a>题目链接传送门</h1><h3 id="蓝桥杯"><a href="#蓝桥杯" class="headerlink" title="蓝桥杯"></a>蓝桥杯</h3><h3 id="PAT乙级"><a href="#PAT乙级" class="headerlink" title="PAT乙级"></a>PAT乙级</h3><h3 id="PAT团体程序设计"><a href="#PAT团体程序设计" class="headerlink" title="PAT团体程序设计"></a>PAT团体程序设计</h3><h3 id="PAT甲级"><a href="#PAT甲级" class="headerlink" title="PAT甲级"></a>PAT甲级</h3>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://gitee.com/jyxzwd/blogpic/raw/master/img/20220307175732.png" alt="BL_1015">)</p><p><strong>题解链接</strong></p><p><a href="https://blog.csdn.net/qq_59602351/article/details/123319352?spm=1001.2014.3001.5502">个人CSDN博客</a></p>]]></content>
       
       
       <categories>
           
-          <category> C++_learn </category>
+          <category> PAT(bl) </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> STL </tag>
+            <tag> learn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PAT_BL_1005</title>
+      <link href="/2022/03/06/SLT-learn/"/>
+      <url>/2022/03/06/SLT-learn/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://gitee.com/jyxzwd/blogpic/raw/master/img/20220307175010.png" alt="BL_1005"></p><p><strong>题解链接</strong></p><p><a href="https://blog.csdn.net/qq_59602351/article/details/123318611?spm=1001.2014.3001.5502">个人呢CSDN博客</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> PAT(bl) </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> learn </tag>
             
         </tags>
       
