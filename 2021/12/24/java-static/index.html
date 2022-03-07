@@ -6,7 +6,12 @@
     <meta charset="utf-8">
     <meta name="keywords" content="java_static, something for nothing">
     <meta name="description" content="java中static介绍以及注意事项
-1234567891011121314151617181920212223242526272829303132333435363738394041package static_learn;/** * ">
+package static_learn;
+
+/**
+ * 成员变量：
+ * 1，静态成员变量，用static修饰，（属于类，在内存只加载一次，其实表征的
+ * 是类中相较于实例成员变量来说，更具有一">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -465,7 +470,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    267
+                    270
                 </div>
                 
 
@@ -483,7 +488,49 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>java中static介绍以及注意事项</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> static_learn;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 成员变量：</span></span><br><span class="line"><span class="comment"> * 1，静态成员变量，用static修饰，（属于类，在内存只加载一次，其实表征的</span></span><br><span class="line"><span class="comment"> * 是类中相较于实例成员变量来说，更具有一般化，即共有化的属性，相当于是归并中的归并）</span></span><br><span class="line"><span class="comment"> * 如实时在线人数</span></span><br><span class="line"><span class="comment"> * 一般使用类名.静态成员变量访问(A101)</span></span><br><span class="line"><span class="comment"> * 2，实例成员变量（存在于每个对象当中）</span></span><br><span class="line"><span class="comment"> * 它表征的是对象所共有，但，但是，但是更为个性化的属性（如在线人中各个人的id，年龄等）</span></span><br><span class="line"><span class="comment"> * 一般使用：对象.实例成员变量访问，(A102)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * -------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * -------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 成员方法（访问方式同成 员变量）</span></span><br><span class="line"><span class="comment"> * 1，静态成员方法，</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">static_app</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span>  <span class="title">getmax</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        System.out.println(a&gt;b?a:b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">learn</span> <span class="params">(String name)</span></span>&#123;</span><br><span class="line">        System.out.println(name+<span class="string">&quot;niu&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        num--;</span><br><span class="line">        System.out.println(num);<span class="comment">//(A101)</span></span><br><span class="line">        static_app t1 = <span class="keyword">new</span> static_app();</span><br><span class="line">        System.out.println(t1.name);<span class="comment">//A(102)</span></span><br><span class="line"></span><br><span class="line">        static_app.getmax(<span class="number">3</span>,<span class="number">5</span>);</span><br><span class="line">        t1.learn(<span class="string">&quot;cjj&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> static_learn<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 成员变量：
+ * 1，静态成员变量，用static修饰，（属于类，在内存只加载一次，其实表征的
+ * 是类中相较于实例成员变量来说，更具有一般化，即共有化的属性，相当于是归并中的归并）
+ * 如实时在线人数
+ * 一般使用类名.静态成员变量访问(A101)
+ * 2，实例成员变量（存在于每个对象当中）
+ * 它表征的是对象所共有，但，但是，但是更为个性化的属性（如在线人中各个人的id，年龄等）
+ * 一般使用：对象.实例成员变量访问，(A102)
+ *
+ *
+ * -------------------------------------------------------------
+ * -------------------------------------------------------------
+ *
+ *
+ * 成员方法（访问方式同成 员变量）
+ * 1，静态成员方法，
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">static_app</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span>  <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token operator">></span>b<span class="token operator">?</span>a<span class="token operator">:</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">learn</span> <span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name<span class="token operator">+</span><span class="token string">"niu"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        num<span class="token operator">--</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//(A101)</span>
+        static_app t1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">static_app</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>t1<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//A(102)</span>
+
+        static_app<span class="token punctuation">.</span><span class="token function">getmax</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t1<span class="token punctuation">.</span><span class="token function">learn</span><span class="token punctuation">(</span><span class="token string">"cjj"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+
                 
             </div>
             <hr/>
