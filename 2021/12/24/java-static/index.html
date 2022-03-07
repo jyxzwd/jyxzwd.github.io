@@ -4,11 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PAT_BL_1005, something for nothing">
-    <meta name="description" content="
-题解链接
-个人CSDN博客
-">
+    <meta name="keywords" content="java_static, something for nothing">
+    <meta name="description" content="java中static介绍以及注意事项
+1234567891011121314151617181920212223242526272829303132333435363738394041package static_learn;/** * ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PAT_BL_1005 | 朗郁</title>
+    <title>java_static | 朗郁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -317,7 +315,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PAT_BL_1005</h1>
+                    <h1 class="description center-align post-title">java_static</h1>
                 </div>
             </div>
         </div>
@@ -445,8 +443,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                PAT(bl)
+                            <a href="/categories/java/" class="post-category">
+                                java
                             </a>
                         
                     </div>
@@ -458,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-06
+                    2021-12-24
                 </div>
                 
 
@@ -467,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9
+                    267
                 </div>
                 
 
@@ -484,10 +482,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://gitee.com/jyxzwd/blogpic/raw/master/img/20220307175010.png" alt="BL_1005"></p>
-<p><strong>题解链接</strong></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_59602351/article/details/123318611?spm=1001.2014.3001.5502">个人CSDN博客</a></p>
-
+                <p>java中static介绍以及注意事项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">package static_learn;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 成员变量：</span><br><span class="line"> * 1，静态成员变量，用static修饰，（属于类，在内存只加载一次，其实表征的</span><br><span class="line"> * 是类中相较于实例成员变量来说，更具有一般化，即共有化的属性，相当于是归并中的归并）</span><br><span class="line"> * 如实时在线人数</span><br><span class="line"> * 一般使用类名.静态成员变量访问(A101)</span><br><span class="line"> * 2，实例成员变量（存在于每个对象当中）</span><br><span class="line"> * 它表征的是对象所共有，但，但是，但是更为个性化的属性（如在线人中各个人的id，年龄等）</span><br><span class="line"> * 一般使用：对象.实例成员变量访问，(A102)</span><br><span class="line"> *</span><br><span class="line"> *</span><br><span class="line"> * -------------------------------------------------------------</span><br><span class="line"> * -------------------------------------------------------------</span><br><span class="line"> *</span><br><span class="line"> *</span><br><span class="line"> * 成员方法（访问方式同成 员变量）</span><br><span class="line"> * 1，静态成员方法，</span><br><span class="line"> */</span><br><span class="line">public class static_app &#123;</span><br><span class="line">    public static int num;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public static void  getmax(int a,int b)&#123;</span><br><span class="line">        System.out.println(a&gt;b?a:b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void learn (String name)&#123;</span><br><span class="line">        System.out.println(name+&quot;niu&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        num--;</span><br><span class="line">        System.out.println(num);//(A101)</span><br><span class="line">        static_app t1 = new static_app();</span><br><span class="line">        System.out.println(t1.name);//A(102)</span><br><span class="line"></span><br><span class="line">        static_app.getmax(3,5);</span><br><span class="line">        t1.learn(&quot;cjj&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -513,7 +509,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/03/06/SLT-learn/">http://example.com/2022/03/06/SLT-learn/</a>
+                    <a href="http://example.com/2021/12/24/java-static/">http://example.com/2021/12/24/java-static/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -728,13 +724,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/06/PAT-basic-level-1/">
+                <a href="/2022/03/06/SLT-learn/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="PAT_BL_1015">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="PAT_BL_1005">
                         
-                        <span class="card-title">PAT_BL_1015</span>
+                        <span class="card-title">PAT_BL_1005</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -774,7 +770,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
                 <a href="/2021/12/24/java-static/">
@@ -808,6 +804,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
