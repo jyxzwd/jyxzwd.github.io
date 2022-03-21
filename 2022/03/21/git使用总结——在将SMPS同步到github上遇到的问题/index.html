@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PAT_BL_1015, something for nothing">
-    <meta name="description" content=")
-题解链接
-个人CSDN博客
-">
+    <meta name="keywords" content="something for nothing">
+    <meta name="description" content="问题 一
+在使用 git push -u master 命令时出现 
+error: src refspec master does not match anyerror: failed to push some refs to ‘com/j">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PAT_BL_1015 | 朗郁</title>
+    <title>朗郁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -312,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PAT_BL_1015</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -431,25 +430,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/learn/">
-                                <span class="chip bg-color">learn</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                PAT(bl)
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -458,7 +444,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-06
+                    2022-03-21
                 </div>
                 
 
@@ -467,7 +453,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9
+                    337
                 </div>
                 
 
@@ -484,9 +470,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://gitee.com/jyxzwd/blogpic/raw/master/img/20220307175732.png" alt="BL_1015">)</p>
-<p><strong>题解链接</strong></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_59602351/article/details/123319352?spm=1001.2014.3001.5502">个人CSDN博客</a></p>
+                <p>问题 一</p>
+<p>在使用 git push -u master 命令时出现 </p>
+<p>error: src refspec master does not match any<br>error: failed to push some refs to ‘com/jyxzwd/SPMS.git’</p>
+<p>的报错。</p>
+<br/>
+
+<p>原因 </p>
+<p>初始时与远程仓库绑定时 代码写错</p>
+<p>写成了（git remote add origin https//: github.com/jyxzwd/SPMS.git</p>
+<p>）</p>
+<p> 在push 之前 未在 本地版本库中 add 任何 文件 到 缓存区中（status），</p>
+<p>当然也没有commit 命令来 把 缓存区 中的文件 提交到当前分支上 </p>
+<br/>
+
+<p>总结 </p>
+<p>绑定远程仓库的 正确git指令为</p>
+<p>git remote add origin <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#64;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;</a>:username/repository_name.git</p>
+<br/>
+
+<p>在push之前必有两步操作</p>
+<ol>
+<li><pre><code>git add filename
+</code></pre>
+</li>
+<li><pre><code>git commit -m&#39;remakers&#39;
+</code></pre>
+</li>
+</ol>
+<p>问题二</p>
+<br/>
+
+<p>在本地修改文件之后用push想要同步更新远程仓库</p>
+<p>报错：hint: Updates were rejected because the tip of your current branch is behind</p>
+<br/>
+
+<p>原因： 该报错在git push时出现，一句话解释就是你在本地仓库上的修改没有基于远程库最新版本，你的本地仓库版本落后于远程仓库。（这个报错告诉我们在本地开发的时候，要经常使用git pull获取远程分支最新改动，这样才能保证在最终git push的时候本地commit历史和远程commit历史是一致的）</p>
+<p>总结 </p>
+<p>每次push完之后记得都要 pull一下</p>
 
                 
             </div>
@@ -513,7 +534,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/03/06/PAT-basic-level-1/">http://example.com/2022/03/06/PAT-basic-level-1/</a>
+                    <a href="http://example.com/2022/03/21/git%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E5%9C%A8%E5%B0%86SMPS%E5%90%8C%E6%AD%A5%E5%88%B0github%E4%B8%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">http://example.com/2022/03/21/git%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E5%9C%A8%E5%B0%86SMPS%E5%90%8C%E6%AD%A5%E5%88%B0github%E4%B8%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -550,11 +571,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/learn/">
-                                    <span class="chip bg-color">learn</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -724,9 +741,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/21/git%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E5%9C%A8%E5%B0%86SMPS%E5%90%8C%E6%AD%A5%E5%88%B0github%E4%B8%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
                     <div class="card-image">
@@ -744,9 +762,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -755,6 +773,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -765,13 +784,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/06/SLT-learn/">
+                <a href="/2022/03/06/PAT-basic-level-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PAT_BL_1005">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="PAT_BL_1015">
                         
-                        <span class="card-title">PAT_BL_1005</span>
+                        <span class="card-title">PAT_BL_1015</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
