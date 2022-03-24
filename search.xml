@@ -4,31 +4,6 @@
   
     
     <entry>
-      <title>git使用总结</title>
-      <link href="/2022/03/21/git%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E5%9C%A8%E5%B0%86SMPS%E5%90%8C%E6%AD%A5%E5%88%B0github%E4%B8%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-      <url>/2022/03/21/git%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%E2%80%94%E2%80%94%E5%9C%A8%E5%B0%86SMPS%E5%90%8C%E6%AD%A5%E5%88%B0github%E4%B8%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      
-        <content type="html"><![CDATA[<p>问题 一</p><p>在使用 git push -u master 命令时出现 </p><p>error: src refspec master does not match any<br>error: failed to push some refs to ‘com/jyxzwd/SPMS.git’</p><p>的报错。</p><br/><p>原因 </p><p>初始时与远程仓库绑定时 代码写错</p><p>写成了（git remote add origin https//: github.com/jyxzwd/SPMS.git</p><p>）</p><p> 在push 之前 未在 本地版本库中 add 任何 文件 到 缓存区中（status），</p><p>当然也没有commit 命令来 把 缓存区 中的文件 提交到当前分支上 </p><br/><p>总结 </p><p>绑定远程仓库的 正确git指令为</p><p>git remote add origin <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#103;&#105;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;</a>:username/repository_name.git</p><br/><p>在push之前必有两步操作</p><ol><li><pre class=" language-java"><code class="language-java">git add filename</code></pre></li><li><pre class=" language-java"><code class="language-java">git commit <span class="token operator">-</span>m<span class="token string">'remakers'</span></code></pre></li></ol><p>问题二</p><br/><p>在本地修改文件之后用push想要同步更新远程仓库</p><p>报错：hint: Updates were rejected because the tip of your current branch is behind</p><br/><p>原因： 该报错在git push时出现，一句话解释就是你在本地仓库上的修改没有基于远程库最新版本，你的本地仓库版本落后于远程仓库。（这个报错告诉我们在本地开发的时候，要经常使用git pull获取远程分支最新改动，这样才能保证在最终git push的时候本地commit历史和远程commit历史是一致的）</p><p>总结 </p><p>每次push完之后记得都要 pull一下</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> git </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> learn </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>PAT_BL_1015</title>
       <link href="/2022/03/06/PAT-basic-level-1/"/>
       <url>/2022/03/06/PAT-basic-level-1/</url>
