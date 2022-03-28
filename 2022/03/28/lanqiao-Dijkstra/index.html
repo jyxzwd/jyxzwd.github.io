@@ -7,13 +7,12 @@
     <meta name="keywords" content="lanqiao_Dijkstra, something for nothing">
     <meta name="description" content="蓝桥杯练习题目链接 
 [P1553 - 蓝桥杯2021初赛] 路径 - New Online Judge (ecustacm.cn)
-#include
+#include&amp;lt;bits/stdc++.h&gt;
 
 using namespace std;
 
 /*
-总结：
-还是数据的初始化问题啊啊啊啊">
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -472,7 +471,7 @@ using namespace std;
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    147
+                    377
                 </div>
                 
 
@@ -491,90 +490,90 @@ using namespace std;
             <div id="articleContent">
                 <h1 id="蓝桥杯练习"><a href="#蓝桥杯练习" class="headerlink" title="蓝桥杯练习"></a>蓝桥杯练习</h1><p><strong>题目链接</strong> </p>
 <p>[P1553 - <a target="_blank" rel="noopener" href="http://oj.ecustacm.cn/problem.php?id=1553">蓝桥杯2021初赛] 路径 - New Online Judge (ecustacm.cn)</a></p>
-<pre class=" language-C++"><code class="language-C++">#include<bits/stdc++.h>
+<pre class=" language-java"><code class="language-java">#include<span class="token operator">&lt;</span>bits<span class="token operator">/</span>stdc<span class="token operator">++</span><span class="token punctuation">.</span>h<span class="token operator">></span>
 
-using namespace std;
+using namespace std<span class="token punctuation">;</span>
 
-/*
+<span class="token comment" spellcheck="true">/*
 总结：
 还是数据的初始化问题啊啊啊啊啊
 由于最小值初值的大小设置的过小（小于了答案）
 所以根本无法得出正确答案，一直得到的都是一开始设置的初值
 下次要记住，初值的设置尽可能的大！！！
-*/
-const int MAX=0xfffffff;
+*/</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> MAX<span class="token operator">=</span><span class="token number">0xfffffff</span><span class="token punctuation">;</span>
 
 
-const int maxn = 2022;
-const int START=1;
-const int END=2021;
-int dis[maxn];
-int mapp[maxn][maxn];
-bool vis[maxn];
-int path[maxn];
-void pr(int pa){
-    if(pa==START){
-        return;
-    }
-    pr(path[pa]);
-    cout<<path[pa]<<" ";
-}
-int gcd(int m,int n){
-    if(n==0){
-        return m;
-    }
-    return gcd(n,m%n);
-}
-void dj(){
-    for(int i=START;i<=END;i++){
-        //寻找当前还未被访问的最小value的点
-        int t=START;
-        int minn=MAX;
-        for(int j=START;j<=END;j++){
-            if(!vis[j]&&minn>dis[j]){
-                minn=dis[j];
-                t=j;
-            }
-        }
+<span class="token keyword">const</span> <span class="token keyword">int</span> maxn <span class="token operator">=</span> <span class="token number">2022</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> START<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> END<span class="token operator">=</span><span class="token number">2021</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> dis<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> mapp<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
+bool vis<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> path<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">pr</span><span class="token punctuation">(</span><span class="token keyword">int</span> pa<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>pa<span class="token operator">==</span>START<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">pr</span><span class="token punctuation">(</span>path<span class="token punctuation">[</span>pa<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout<span class="token operator">&lt;&lt;</span>path<span class="token punctuation">[</span>pa<span class="token punctuation">]</span><span class="token operator">&lt;&lt;</span><span class="token string">" "</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> m<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>n<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> m<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token function">gcd</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span>m<span class="token operator">%</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token function">dj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>START<span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>END<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//寻找当前还未被访问的最小value的点</span>
+        <span class="token keyword">int</span> t<span class="token operator">=</span>START<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> minn<span class="token operator">=</span>MAX<span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>START<span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>END<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&amp;&amp;</span>minn<span class="token operator">></span>dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                minn<span class="token operator">=</span>dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                t<span class="token operator">=</span>j<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        //标记t已被作为核心
-        vis[t]=true;
-        //然后以t为核心，更新各个节点到START的最短距离
-        for(int j=START;j<=END;j++){
-            if(!vis[j]&&dis[j]>dis[t]+mapp[t][j]){
-                dis[j]=dis[t]+mapp[t][j];
-                //同时记录前驱节点
-                path[j]=t;
-            }
-        }
-    }
-}
-int main(){
-//初始化
+        <span class="token comment" spellcheck="true">//标记t已被作为核心</span>
+        vis<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//然后以t为核心，更新各个节点到START的最短距离</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>START<span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>END<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&amp;&amp;</span>dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">></span>dis<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token operator">+</span>mapp<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>dis<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token operator">+</span>mapp<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//同时记录前驱节点</span>
+                path<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>t<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token comment" spellcheck="true">//初始化</span>
 
-    fill(dis,dis+maxn,MAX);
-    fill(mapp[0],mapp[0]+maxn*maxn,MAX);
-    fill(path,path+maxn,-1);
-    dis[1]=0;
-    path[START]=START;
-//输入
+    <span class="token function">fill</span><span class="token punctuation">(</span>dis<span class="token punctuation">,</span>dis<span class="token operator">+</span>maxn<span class="token punctuation">,</span>MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fill</span><span class="token punctuation">(</span>mapp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>mapp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>maxn<span class="token operator">*</span>maxn<span class="token punctuation">,</span>MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fill</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span>path<span class="token operator">+</span>maxn<span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    dis<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    path<span class="token punctuation">[</span>START<span class="token punctuation">]</span><span class="token operator">=</span>START<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//输入</span>
 
-for(int i=1;i<2021;i++){
-    for(int j=i+1;j<=2021;j++){
-        if(abs(i-j)<=21){
-             mapp[i][j]=mapp[j][i]=i/gcd(i,j)*j;
-        }
-    }
-}
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">2021</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span><span class="token number">2021</span><span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>i<span class="token operator">-</span>j<span class="token punctuation">)</span><span class="token operator">&lt;=</span><span class="token number">21</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+             mapp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>mapp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token operator">/</span><span class="token function">gcd</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token operator">*</span>j<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 
-dj();
+<span class="token function">dj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-pr(END);
-cout<<END<<endl;
-cout<<dis[END];
-return 0;
-}
+<span class="token function">pr</span><span class="token punctuation">(</span>END<span class="token punctuation">)</span><span class="token punctuation">;</span>
+cout<span class="token operator">&lt;&lt;</span>END<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuation">[</span>END<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
                 
