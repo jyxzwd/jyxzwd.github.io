@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>lanqiao_Dijkstra</title>
+      <link href="/2022/03/28/lanqiao-Dijkstra/"/>
+      <url>/2022/03/28/lanqiao-Dijkstra/</url>
+      
+        <content type="html"><![CDATA[<h1 id="蓝桥杯练习"><a href="#蓝桥杯练习" class="headerlink" title="蓝桥杯练习"></a>蓝桥杯练习</h1><p><strong>题目链接</strong> </p><p>[P1553 - <a href="http://oj.ecustacm.cn/problem.php?id=1553">蓝桥杯2021初赛] 路径 - New Online Judge (ecustacm.cn)</a></p><pre class=" language-C++"><code class="language-C++">#include<bits/stdc++.h>using namespace std;/*总结：还是数据的初始化问题啊啊啊啊啊由于最小值初值的大小设置的过小（小于了答案）所以根本无法得出正确答案，一直得到的都是一开始设置的初值下次要记住，初值的设置尽可能的大！！！*/const int MAX=0xfffffff;const int maxn = 2022;const int START=1;const int END=2021;int dis[maxn];int mapp[maxn][maxn];bool vis[maxn];int path[maxn];void pr(int pa){    if(pa==START){        return;    }    pr(path[pa]);    cout<<path[pa]<<" ";}int gcd(int m,int n){    if(n==0){        return m;    }    return gcd(n,m%n);}void dj(){    for(int i=START;i<=END;i++){        //寻找当前还未被访问的最小value的点        int t=START;        int minn=MAX;        for(int j=START;j<=END;j++){            if(!vis[j]&&minn>dis[j]){                minn=dis[j];                t=j;            }        }        //标记t已被作为核心        vis[t]=true;        //然后以t为核心，更新各个节点到START的最短距离        for(int j=START;j<=END;j++){            if(!vis[j]&&dis[j]>dis[t]+mapp[t][j]){                dis[j]=dis[t]+mapp[t][j];                //同时记录前驱节点                path[j]=t;            }        }    }}int main(){//初始化    fill(dis,dis+maxn,MAX);    fill(mapp[0],mapp[0]+maxn*maxn,MAX);    fill(path,path+maxn,-1);    dis[1]=0;    path[START]=START;//输入for(int i=1;i<2021;i++){    for(int j=i+1;j<=2021;j++){        if(abs(i-j)<=21){             mapp[i][j]=mapp[j][i]=i/gcd(i,j)*j;        }    }}dj();pr(END);cout<<END<<endl;cout<<dis[END];return 0;}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> LANQIAO </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> learn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>test</title>
       <link href="/2022/03/27/test/"/>
       <url>/2022/03/27/test/</url>
