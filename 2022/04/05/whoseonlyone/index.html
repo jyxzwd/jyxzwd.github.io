@@ -4,14 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="lanqiao_Dijkstra, something for nothing">
-    <meta name="description" content="蓝桥杯练习题目链接 
-[P1553 - 蓝桥杯2021初赛] 路径 - New Online Judge (ecustacm.cn)
-#include&amp;lt;bits/stdc++.h&gt;
-
-using namespace std;
-
-/*
+    <meta name="keywords" content="whoseonlyone, something for nothing">
+    <meta name="description" content="THE
+ONLY
+ONE
 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -24,7 +20,7 @@ using namespace std;
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>lanqiao_Dijkstra | 朗郁</title>
+    <title>whoseonlyone | 朗郁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -316,12 +312,12 @@ using namespace std;
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">lanqiao_Dijkstra</h1>
+                    <h1 class="description center-align post-title">whoseonlyone</h1>
                 </div>
             </div>
         </div>
@@ -437,8 +433,8 @@ using namespace std;
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/learn/">
-                                <span class="chip bg-color">learn</span>
+                            <a href="/tags/obsession/">
+                                <span class="chip bg-color">obsession</span>
                             </a>
                         
                     </div>
@@ -449,8 +445,8 @@ using namespace std;
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/LANQIAO/" class="post-category">
-                                LANQIAO
+                            <a href="/categories/%E5%BE%85%E6%81%99%E3%80%81%E9%97%BB%E6%9F%B3%E3%80%81%E9%85%8C%E7%A9%BA/" class="post-category">
+                                待恙、闻柳、酌空
                             </a>
                         
                     </div>
@@ -462,7 +458,7 @@ using namespace std;
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-28
+                    2022-04-05
                 </div>
                 
 
@@ -471,7 +467,7 @@ using namespace std;
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    377
+                    3
                 </div>
                 
 
@@ -488,93 +484,9 @@ using namespace std;
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="蓝桥杯练习"><a href="#蓝桥杯练习" class="headerlink" title="蓝桥杯练习"></a>蓝桥杯练习</h1><p><strong>题目链接</strong> </p>
-<p>[P1553 - <a target="_blank" rel="noopener" href="http://oj.ecustacm.cn/problem.php?id=1553">蓝桥杯2021初赛] 路径 - New Online Judge (ecustacm.cn)</a></p>
-<pre class=" language-java"><code class="language-java">#include<span class="token operator">&lt;</span>bits<span class="token operator">/</span>stdc<span class="token operator">++</span><span class="token punctuation">.</span>h<span class="token operator">></span>
-
-using namespace std<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/*
-总结：
-还是数据的初始化问题啊啊啊啊啊
-由于最小值初值的大小设置的过小（小于了答案）
-所以根本无法得出正确答案，一直得到的都是一开始设置的初值
-下次要记住，初值的设置尽可能的大！！！
-*/</span>
-<span class="token keyword">const</span> <span class="token keyword">int</span> MAX<span class="token operator">=</span><span class="token number">0xfffffff</span><span class="token punctuation">;</span>
-
-
-<span class="token keyword">const</span> <span class="token keyword">int</span> maxn <span class="token operator">=</span> <span class="token number">2022</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token keyword">int</span> START<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token keyword">int</span> END<span class="token operator">=</span><span class="token number">2021</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> dis<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> mapp<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
-bool vis<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> path<span class="token punctuation">[</span>maxn<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">pr</span><span class="token punctuation">(</span><span class="token keyword">int</span> pa<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>pa<span class="token operator">==</span>START<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">pr</span><span class="token punctuation">(</span>path<span class="token punctuation">[</span>pa<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout<span class="token operator">&lt;&lt;</span>path<span class="token punctuation">[</span>pa<span class="token punctuation">]</span><span class="token operator">&lt;&lt;</span><span class="token string">" "</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> m<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>n<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">return</span> m<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token function">gcd</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span>m<span class="token operator">%</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">void</span> <span class="token function">dj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>START<span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>END<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//寻找当前还未被访问的最小value的点</span>
-        <span class="token keyword">int</span> t<span class="token operator">=</span>START<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> minn<span class="token operator">=</span>MAX<span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>START<span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>END<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&amp;&amp;</span>minn<span class="token operator">></span>dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                minn<span class="token operator">=</span>dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                t<span class="token operator">=</span>j<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token comment" spellcheck="true">//标记t已被作为核心</span>
-        vis<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//然后以t为核心，更新各个节点到START的最短距离</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>START<span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>END<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&amp;&amp;</span>dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">></span>dis<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token operator">+</span>mapp<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                dis<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>dis<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token operator">+</span>mapp<span class="token punctuation">[</span>t<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">//同时记录前驱节点</span>
-                path<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>t<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-<span class="token comment" spellcheck="true">//初始化</span>
-
-    <span class="token function">fill</span><span class="token punctuation">(</span>dis<span class="token punctuation">,</span>dis<span class="token operator">+</span>maxn<span class="token punctuation">,</span>MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">fill</span><span class="token punctuation">(</span>mapp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>mapp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>maxn<span class="token operator">*</span>maxn<span class="token punctuation">,</span>MAX<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">fill</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span>path<span class="token operator">+</span>maxn<span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    dis<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-    path<span class="token punctuation">[</span>START<span class="token punctuation">]</span><span class="token operator">=</span>START<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//输入</span>
-
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">2021</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;=</span><span class="token number">2021</span><span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>i<span class="token operator">-</span>j<span class="token punctuation">)</span><span class="token operator">&lt;=</span><span class="token number">21</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-             mapp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>mapp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token operator">/</span><span class="token function">gcd</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token operator">*</span>j<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-
-<span class="token function">dj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token function">pr</span><span class="token punctuation">(</span>END<span class="token punctuation">)</span><span class="token punctuation">;</span>
-cout<span class="token operator">&lt;&lt;</span>END<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
-cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuation">[</span>END<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
+                <h1 id="THE"><a href="#THE" class="headerlink" title="THE"></a>THE</h1><p><img src="/2022/04/05/whoseonlyone/wy_1.jpg" alt="待恙"></p>
+<h1 id="ONLY"><a href="#ONLY" class="headerlink" title="ONLY"></a>ONLY</h1><p><img src="/2022/04/05/whoseonlyone/wy_3.jpg" alt="闻柳"></p>
+<h1 id="ONE"><a href="#ONE" class="headerlink" title="ONE"></a>ONE</h1><p><img src="/2022/04/05/whoseonlyone/wy_2.jpg" alt="酌空"></p>
 
                 
             </div>
@@ -601,7 +513,7 @@ cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuatio
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/03/28/lanqiao-Dijkstra/">http://example.com/2022/03/28/lanqiao-Dijkstra/</a>
+                    <a href="http://example.com/2022/04/05/whoseonlyone/">http://example.com/2022/04/05/whoseonlyone/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -639,8 +551,8 @@ cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuatio
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/learn/">
-                                    <span class="chip bg-color">learn</span>
+                                <a href="/tags/obsession/">
+                                    <span class="chip bg-color">obsession</span>
                                 </a>
                             
                         </div>
@@ -816,13 +728,13 @@ cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuatio
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/28/STL-learn/">
+                <a href="/2022/04/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_2%E8%87%B34/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="STL_learn">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="正则表达式_语法学习__2至4">
                         
-                        <span class="card-title">STL_learn</span>
+                        <span class="card-title">正则表达式_语法学习__2至4</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -833,14 +745,14 @@ cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuatio
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-10
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/STL/" class="post-category">
-                                    STL
+                            <a href="/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-category">
+                                    正则表达式
                                 </a>
                             
                             
@@ -865,13 +777,13 @@ cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuatio
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/06/PAT-basic-level-1/">
+                <a href="/2022/04/02/expercience_skill/hexo-insert-local-image/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="PAT_BL_1015">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="hexo_insert_local_image">
                         
-                        <span class="card-title">PAT_BL_1015</span>
+                        <span class="card-title">hexo_insert_local_image</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -882,14 +794,14 @@ cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuatio
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-02
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                    PAT(bl)
+                            <a href="/categories/hexo/" class="post-category">
+                                    hexo
                                 </a>
                             
                             
@@ -899,8 +811,8 @@ cout<span class="token operator">&lt;&lt;</span>dis<span class="token punctuatio
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/learn/">
-                        <span class="chip bg-color">learn</span>
+                    <a href="/tags/experience-and-conclusion/">
+                        <span class="chip bg-color">experience_and_conclusion</span>
                     </a>
                     
                 </div>

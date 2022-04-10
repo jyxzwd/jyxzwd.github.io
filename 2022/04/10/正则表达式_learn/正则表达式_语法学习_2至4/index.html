@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PAT_BL_1005, something for nothing">
-    <meta name="description" content="
-题解链接
-个人CSDN博客
-">
+    <meta name="keywords" content="正则表达式_语法学习__2至4, something for nothing">
+    <meta name="description" content="匹配任意字符的 “.”注意 
+1.&#34;matches any character (expect for line terminators)&#34;
+         (&#34;.&#34;可以匹配除了换行符的任意字符)
+        2.当要匹配诸如&#34;.&#34;这">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PAT_BL_1005 | 朗郁</title>
+    <title>正则表达式_语法学习__2至4 | 朗郁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PAT_BL_1005</h1>
+                    <h1 class="description center-align post-title">正则表达式_语法学习__2至4</h1>
                 </div>
             </div>
         </div>
@@ -445,8 +445,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                PAT(bl)
+                            <a href="/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-category">
+                                正则表达式
                             </a>
                         
                     </div>
@@ -458,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-06
+                    2022-04-10
                 </div>
                 
 
@@ -467,7 +467,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9
+                    1.3k
                 </div>
                 
 
@@ -484,9 +484,241 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://s2.loli.net/2022/03/28/qlOSKDERYfXCw4v.png"></p>
-<p><strong>题解链接</strong></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_59602351/article/details/123318611?spm=1001.2014.3001.5502">个人CSDN博客</a></p>
+                <h1 id="匹配任意字符的-“-”"><a href="#匹配任意字符的-“-”" class="headerlink" title="匹配任意字符的 “.”"></a>匹配任意字符的 “.”</h1><p><strong>注意</strong> </p>
+<pre class=" language-markdown"><code class="language-markdown">1."matches any character (expect for line terminators)"
+<span class="token code keyword">         ("."可以匹配除了换行符的任意字符)</span>
+<span class="token code keyword">        2.当要匹配诸如"."这样的特殊字符时，要用"\"来转义</span>
+<span class="token code keyword">         如若要匹配"."</span>
+</code></pre>
+<p><code>    则要使用  \.</code></p>
+<p><img src="https://s2.loli.net/2022/04/10/cY7hyWxE4oGb2jm.png" alt="特殊字符转义"></p>
+<h2 id="匹配一组字符"><a href="#匹配一组字符" class="headerlink" title="匹配一组字符"></a>匹配一组字符</h2><p><strong>用法</strong> 使用字符集合”[]”</p>
+<p><strong>例一</strong> </p>
+<p>第一个像被匹配的字符只能是n或者s</p>
+<p><img src="https://s2.loli.net/2022/04/10/MPoIZ5lmAc2J4hF.png"></p>
+<p><strong>例二</strong></p>
+<p>区间字符</p>
+<p>A-Z</p>
+<p><code>[A-Z]</code></p>
+<p>A-Z 并且 0-9</p>
+<br>
+
+<p><code>[A-Z0-9]</code></p>
+<br>
+
+<p><strong>例三</strong></p>
+<pre class=" language-markdown"><code class="language-markdown">取非操作
+要匹配任意的非字母数字字符
+则可以
+</code></pre>
+<p><code>[^A-Za-z0-9]</code></p>
+<br>
+
+<p><img src="https://s2.loli.net/2022/04/10/k17uFwoVx9EZd8I.png" alt="取非操作"></p>
+<p><strong>注意</strong>  </p>
+<pre class=" language-markdown"><code class="language-markdown">^的效果将作用于给定字符集合里的所有字符或字符区间，而
+不是仅限于紧跟在^字符后面的那一个字符或字符区间
+</code></pre>
+<p><strong>小结</strong></p>
+<pre class=" language-markdown"><code class="language-markdown">元字符[和]用来定义一个字符集合，其含义是必须匹配该集合里的字符
+之一。定义一个字符集合的具体做法有两种：一是把所有的字符都列举
+出来；二是利用元字符-以字符区间的方式给出。字符集合可以用元字
+符^来求非；这将把给定的字符集合强行排除在匹配操作以外——除了
+该字符集合里的字符，其他字符都可以被匹配。
+</code></pre>
+<br>
+
+<h3 id="使用元字符"><a href="#使用元字符" class="headerlink" title="使用元字符"></a>使用元字符</h3><p>** 例一** </p>
+<p><strong>对特殊字符进行转义</strong></p>
+<pre class=" language-markdown"><code class="language-markdown">提示 任何一个元字符都可以通过给它加上一个反斜杠字符（\）作
+为前缀的办法来转义，能够被转义的元字符并不仅局限于我们这里提
+到的那几个。
+警告 配对的元字符（比如[或]）不用作元字符时必须被转义，否则
+正则表达式分析器很可能会抛出一个错误。
+</code></pre>
+<p><strong>注意</strong> </p>
+<pre class=" language-markdown"><code class="language-markdown">如果你在这个正则表达式里只写出了一个\的话
+你应该会看到一条出错消息。
+这是因为正则表达式分析器会认为你的正则表达式不完整，
+在一个完整的正则表达式里，字符\的后面永远跟着另一个字符。
+</code></pre>
+<p><strong>例二</strong></p>
+<p><strong>匹配空白字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[\b]</td>
+<td>回退（并删除）一个字符</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车符</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表符</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>垂直制表符</td>
+</tr>
+</tbody></table>
+<p><strong>注意（一个有意思的现象）</strong></p>
+<pre class=" language-markdown"><code class="language-markdown">你已经见过不少元字符了，但你注意到它们之间的差异了
+吗？.和[是元字符，但前提是你没有对它们进行转义。f和n也是元字
+符，但前提是你对它们进行了转义。如果你没有对f和n进行转义，它
+们将被解释为普通字符，只能匹配它们本身。
+</code></pre>
+<br>
+
+<p><strong>例三</strong></p>
+<p><strong>使用数字元字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\d</td>
+<td>任何一个数字字符（等价于[0-9]</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>任何一个非数字字符（等价于[^0-9]</td>
+</tr>
+</tbody></table>
+<p><img src="https://s2.loli.net/2022/04/10/I5yJbBTuH9AjLzW.png" alt="使用数字元字符"></p>
+<p><strong>使用数字字母元字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\w</td>
+<td>任何一个字母数字（大小写均可）或下划线字符 等价于[0-9a-zA-Z_]</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>任何一个非数字字母和下划线 等价于[0-9a-zA-Z_]</td>
+</tr>
+</tbody></table>
+<p><strong>样例</strong></p>
+<p><img src="https://s2.loli.net/2022/04/10/sq9bjuwDTL8WO5c.png" alt="使用数字字母元字符"></p>
+<p><strong>注意</strong></p>
+<pre class=" language-markdown"><code class="language-markdown"> 在上面这个例子里，我们使用的正则表达式解决了我们的问
+题。但它正确吗？请大家思考一下，为什么美国的邮政编码没有被匹
+配出来？是因为它们只由数字构成、还是因为什么其他原因？
+我们将不给出这个问题的答案，理由很简单——例子里的模式解决了
+问题。这里的关键是正则表达式很少有对错之分（当然，前提是它们
+能解决问题），我们更关心的是它们的复杂程度——而这要由模式匹
+配操作的精确程度来决定；如果你需要更精确的匹配，就需要构造更
+复杂的正则表达式。
+</code></pre>
+<br>
+
+<p><strong>例四</strong></p>
+<p><strong>使用匹配空白字符的元字符</strong></p>
+<br>
+
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\s</td>
+<td>任何一个空字符（除了\b) 等价于[\f\t\n\v\r]</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>任何一个非空字符 以及 \b 等价于[^\f\v\t\n\r]</td>
+</tr>
+</tbody></table>
+<br>
+
+<h3 id="使用POSIX字符类"><a href="#使用POSIX字符类" class="headerlink" title="使用POSIX字符类"></a>使用POSIX字符类</h3><table>
+<thead>
+<tr>
+<th>字符类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[:alnum:]</td>
+<td>任何一个字母或数字 等价于 [0-9a-zA-Z] 注意千万不是等价于\w  !!</td>
+</tr>
+<tr>
+<td>[:alpha:]</td>
+<td>任何一个字母 等价于[a-zA-Z]</td>
+</tr>
+<tr>
+<td>[:blank:]</td>
+<td>空格或者制表符 等价于[\t ] 注意\t 后有一个空格</td>
+</tr>
+<tr>
+<td>[:cntrl:]</td>
+<td>ASCII控制字符（ASCII 0到31，再加上ASCII 127）</td>
+</tr>
+<tr>
+<td>[:digit:]</td>
+<td>[0-9]</td>
+</tr>
+<tr>
+<td>[:print:]</td>
+<td>任何一个可打印字符</td>
+</tr>
+<tr>
+<td>[:graph:]</td>
+<td>仅仅是[:print:]不包含空格的情况</td>
+</tr>
+<tr>
+<td>[:lower:]</td>
+<td>[a-z]</td>
+</tr>
+<tr>
+<td>[:punct:]</td>
+<td>既不属于[:alnum:]也不属于[:cntrl:]的任何一个字符</td>
+</tr>
+<tr>
+<td>[:space:]</td>
+<td>任何一个空白字符，包括空格</td>
+</tr>
+<tr>
+<td>[:upper:]</td>
+<td>任何一个大写字母（等价于[A-Z]）</td>
+</tr>
+<tr>
+<td>[:xdigit:]</td>
+<td>任何一个十六进制数字（等价于[a-fA-F0-9]）</td>
+</tr>
+</tbody></table>
+<p><strong>注意</strong></p>
+<pre class=" language-markdown"><code class="language-markdown"> 这里使用的模式以[[开头、以]]结束（两对方括号）。这是使
+用POSIX字符类所必须的。POSIX字符类必须括在[:和:]之间，我们
+使用的POSIX字符类是[:xdigit:]（不是:xdigit:）。外层的[和]
+字符用来定义一个字符集合，内层的[和]字符是POSIX字符类本身的
+组成部分。
+</code></pre>
 
                 
             </div>
@@ -513,7 +745,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/03/06/PAT-basic-level-2/">http://example.com/2022/03/06/PAT-basic-level-2/</a>
+                    <a href="http://example.com/2022/04/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_2%E8%87%B34/">http://example.com/2022/04/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_2%E8%87%B34/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -728,13 +960,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/06/PAT-basic-level-1/">
+                <a href="/2022/04/10/mysql_learn/sql-normal-form/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="PAT_BL_1015">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="sql_normal_form">
                         
-                        <span class="card-title">PAT_BL_1015</span>
+                        <span class="card-title">sql_normal_form</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -745,14 +977,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-06
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-10
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                    PAT(bl)
+                            <a href="/categories/MYSQL/" class="post-category">
+                                    MYSQL
                                 </a>
                             
                             
@@ -777,13 +1009,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/26/java-extends/">
+                <a href="/2022/04/05/whoseonlyone/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="java_extends">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="whoseonlyone">
                         
-                        <span class="card-title">java_extends</span>
+                        <span class="card-title">whoseonlyone</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -794,14 +1026,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/%E5%BE%85%E6%81%99%E3%80%81%E9%97%BB%E6%9F%B3%E3%80%81%E9%85%8C%E7%A9%BA/" class="post-category">
+                                    待恙、闻柳、酌空
                                 </a>
                             
                             
@@ -811,8 +1043,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/learn/">
-                        <span class="chip bg-color">learn</span>
+                    <a href="/tags/obsession/">
+                        <span class="chip bg-color">obsession</span>
                     </a>
                     
                 </div>

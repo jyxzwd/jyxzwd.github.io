@@ -4,11 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PAT_BL_1015, something for nothing">
-    <meta name="description" content="
-题解链接
-个人CSDN博客
-">
+    <meta name="keywords" content="java_static, something for nothing">
+    <meta name="description" content="java中static介绍以及注意事项
+package static_learn;
+
+/**
+ * 成员变量：
+ * 1，静态成员变量，用static修饰，（属于类，在内存只加载一次，其实表征的
+ * 是类中相较于实例成员变量来说，更具有一">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +23,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PAT_BL_1015 | 朗郁</title>
+    <title>java_static | 朗郁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -312,12 +315,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PAT_BL_1015</h1>
+                    <h1 class="description center-align post-title">java_static</h1>
                 </div>
             </div>
         </div>
@@ -445,8 +448,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                PAT(bl)
+                            <a href="/categories/java/" class="post-category">
+                                java
                             </a>
                         
                     </div>
@@ -458,7 +461,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-06
+                    2021-12-24
                 </div>
                 
 
@@ -467,7 +470,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9
+                    254
                 </div>
                 
 
@@ -484,9 +487,49 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://s2.loli.net/2022/03/28/8XEbwaWFhsgJdxB.png"></p>
-<p><strong>题解链接</strong></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_59602351/article/details/123319352?spm=1001.2014.3001.5502">个人CSDN博客</a></p>
+                <p>java中static介绍以及注意事项</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> static_learn<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 成员变量：
+ * 1，静态成员变量，用static修饰，（属于类，在内存只加载一次，其实表征的
+ * 是类中相较于实例成员变量来说，更具有一般化，即共有化的属性，相当于是归并中的归并）
+ * 如实时在线人数
+ * 一般使用类名.静态成员变量访问(A101)
+ * 2，实例成员变量（存在于每个对象当中）
+ * 它表征的是对象所共有，但，但是，但是更为个性化的属性（如在线人中各个人的id，年龄等）
+ * 一般使用：对象.实例成员变量访问，(A102)
+ *
+ *
+ * -------------------------------------------------------------
+ * -------------------------------------------------------------
+ *
+ *
+ * 成员方法（访问方式同成 员变量）
+ * 1，静态成员方法，
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">static_app</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span>  <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token operator">></span>b<span class="token operator">?</span>a<span class="token operator">:</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">learn</span> <span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name<span class="token operator">+</span><span class="token string">"niu"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        num<span class="token operator">--</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//(A101)</span>
+        static_app t1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">static_app</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>t1<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//A(102)</span>
+
+        static_app<span class="token punctuation">.</span><span class="token function">getmax</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t1<span class="token punctuation">.</span><span class="token function">learn</span><span class="token punctuation">(</span><span class="token string">"cjj"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
                 
             </div>
@@ -513,7 +556,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/03/06/PAT-basic-level-1/">http://example.com/2022/03/06/PAT-basic-level-1/</a>
+                    <a href="http://example.com/2021/12/24/java_learn/java-static/">http://example.com/2021/12/24/java_learn/java-static/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -728,13 +771,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/28/lanqiao-Dijkstra/">
+                <a href="/2021/12/26/java_learn/java-extends/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="lanqiao_Dijkstra">
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="java_extends">
                         
-                        <span class="card-title">lanqiao_Dijkstra</span>
+                        <span class="card-title">java_extends</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -745,14 +788,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-26
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LANQIAO/" class="post-category">
-                                    LANQIAO
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
@@ -774,16 +817,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/06/PAT-basic-level-2/">
+                <a href="/2021/12/24/java_learn/java-static/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PAT_BL_1005">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="java_static">
                         
-                        <span class="card-title">PAT_BL_1005</span>
+                        <span class="card-title">java_static</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -794,20 +837,21 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-24
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                    PAT(bl)
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     

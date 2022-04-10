@@ -4,19 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java_extends, something for nothing">
-    <meta name="description" content="java 继承测试类
-package extends_constructor_features;
-
-/**
- * 子类继承父类后构造器的特点
- * 1，
- */
-public class test {
-
-    /**
-    运行结果
-父">
+    <meta name="keywords" content="PAT_BL_1015, something for nothing">
+    <meta name="description" content="
+题解链接
+个人CSDN博客
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,7 +20,7 @@ public class test {
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java_extends | 朗郁</title>
+    <title>PAT_BL_1015 | 朗郁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -320,12 +312,12 @@ public class test {
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/25.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java_extends</h1>
+                    <h1 class="description center-align post-title">PAT_BL_1015</h1>
                 </div>
             </div>
         </div>
@@ -453,8 +445,8 @@ public class test {
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category">
-                                java
+                            <a href="/categories/PAT-bl/" class="post-category">
+                                PAT(bl)
                             </a>
                         
                     </div>
@@ -466,7 +458,7 @@ public class test {
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-26
+                    2022-03-06
                 </div>
                 
 
@@ -475,7 +467,7 @@ public class test {
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    473
+                    9
                 </div>
                 
 
@@ -492,119 +484,9 @@ public class test {
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java-继承"><a href="#java-继承" class="headerlink" title="java 继承"></a>java 继承</h1><p><strong>测试类</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> extends_constructor_features<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/**
- * 子类继承父类后构造器的特点
- * 1，
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span> <span class="token punctuation">{</span>
-
-    <span class="token comment" spellcheck="true">/**
-    运行结果
-父类无参构造器被触发++++++++++++++
-子类无参构造器被触发==============
-父类有参构造器被触发=============
-兄弟有参构造器被触发+++++++++++++++
-朗郁    20    22
-父类有参构造器被触发=============
-兄弟有参构造器被触发+++++++++++++++
-刘洋
-20
-格物致知 
-    */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//1，子类中所有的构造器默认都会优先访问父类中的无参构造，在执行自己</span>
-        Wolf W1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Wolf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-
-        Wolf W2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Wolf</span><span class="token punctuation">(</span><span class="token string">"朗郁"</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token string">"22"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>W2<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"\t"</span><span class="token operator">+</span>W2<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"\t"</span><span class="token operator">+</span>W2<span class="token punctuation">.</span><span class="token function">getClassname</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment" spellcheck="true">//默认数据初始化例子；</span>
-        Wolf W3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Wolf</span><span class="token punctuation">(</span><span class="token string">"刘洋"</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>W3<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>W3<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>W3<span class="token punctuation">.</span><span class="token function">getClassname</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><strong>父类</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> extends_constructor_features<span class="token punctuation">;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">animal</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//父类无参构造器</span>
-    <span class="token keyword">public</span> <span class="token function">animal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"父类无参构造器被触发++++++++++++++"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//父类有参构造器</span>
-    <span class="token keyword">public</span> <span class="token function">animal</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span><span class="token keyword">int</span> age<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"父类有参构造器被触发============="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span>name<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span><span class="token keyword">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><strong>子类</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> extends_constructor_features<span class="token punctuation">;</span>
-
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">people</span> <span class="token keyword">extends</span>  <span class="token class-name">animal</span><span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String classname<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> String <span class="token function">getClassname</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> classname<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setClassname</span><span class="token punctuation">(</span>String classname<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>classname <span class="token operator">=</span> classname<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">//借用兄弟构造器来简单实现默认数据初始化；</span>
-    <span class="token comment" spellcheck="true">//此时调用了兄弟构造器，则就不会再去调用父类构造器，</span>
-    <span class="token comment" spellcheck="true">//因为调用的兄弟构造器中也会去调用父类构造器</span>
-    <span class="token keyword">public</span> <span class="token function">people</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span class="token keyword">int</span> age<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>age<span class="token punctuation">,</span><span class="token string">"格物致知"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-
-
-
-    <span class="token keyword">public</span> <span class="token function">people</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//默认第一条语句为</span>
-        <span class="token comment" spellcheck="true">//super();</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"子类无参构造器被触发=============="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token function">people</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span class="token keyword">int</span> age<span class="token punctuation">,</span> String classname<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//尽管默认第一条语句为 super();</span>
-        <span class="token comment" spellcheck="true">//但是如果手动调用了父类有参构造器，则无参构造器不被触发。</span>
-
-        <span class="token keyword">super</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"兄弟有参构造器被触发+++++++++++++++"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>classname<span class="token operator">=</span>classname<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<pre><code>
-</code></pre>
+                <p><img src="https://s2.loli.net/2022/03/28/8XEbwaWFhsgJdxB.png"></p>
+<p><strong>题解链接</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_59602351/article/details/123319352?spm=1001.2014.3001.5502">个人CSDN博客</a></p>
 
                 
             </div>
@@ -631,7 +513,7 @@ public class test {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/12/26/java-extends/">http://example.com/2021/12/26/java-extends/</a>
+                    <a href="http://example.com/2022/03/06/PATBL_C++_LANQIAO/PAT-basic-level-1/">http://example.com/2022/03/06/PATBL_C++_LANQIAO/PAT-basic-level-1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -846,13 +728,13 @@ public class test {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/06/PAT-basic-level-2/">
+                <a href="/2022/03/28/PATBL_C++_LANQIAO/lanqiao-Dijkstra/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PAT_BL_1005">
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="lanqiao_Dijkstra">
                         
-                        <span class="card-title">PAT_BL_1005</span>
+                        <span class="card-title">lanqiao_Dijkstra</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -863,14 +745,14 @@ public class test {
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-06
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-28
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/PAT-bl/" class="post-category">
-                                    PAT(bl)
+                            <a href="/categories/LANQIAO/" class="post-category">
+                                    LANQIAO
                                 </a>
                             
                             
@@ -895,13 +777,13 @@ public class test {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/24/java-static/">
+                <a href="/2022/03/06/PATBL_C++_LANQIAO/PAT-basic-level-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="java_static">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PAT_BL_1005">
                         
-                        <span class="card-title">java_static</span>
+                        <span class="card-title">PAT_BL_1005</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -912,14 +794,14 @@ public class test {
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/PAT-bl/" class="post-category">
+                                    PAT(bl)
                                 </a>
                             
                             
