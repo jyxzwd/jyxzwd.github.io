@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>正则表达式_语法学习_6（位置匹配）</title>
+      <link href="/2022/04/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_6%EF%BC%88%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D%EF%BC%89/"/>
+      <url>/2022/04/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_6%EF%BC%88%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<p><strong>一</strong>、<strong>单词边界</strong></p><p><strong>目的</strong>：** 匹配单个单词**</p><p><strong>使用元字符</strong>：<code>\b</code></p><p><strong>作用</strong>：</p><pre class=" language-java"><code class="language-java">\b到底匹配什么东西呢？正则表达式引擎不懂英语（事实上，它不懂任何人类语言），也不知道什么是单词边界。简单地说，\b匹配的是一个这样的位置，这个位置位于一个能够用来构成单词的字符（字母、数字和下划线，也就是与\w相匹配的字符）和一个不能用来构成单词的字符（也就是与\W相匹配的字符）之间。</code></pre><p><strong>例一</strong></p><p><strong>没有使用</strong>：<code>\b</code></p><p><img src="https://s2.loli.net/2022/04/14/OISMCdmZxwn3PEl.png" alt="没有使用\b"></p><p><strong>使用之后</strong></p><p><img src="https://s2.loli.net/2022/04/14/ICVM8cjKEvz4tFu.png" alt="使用了\b"></p><p><strong>二、字符串边界</strong></p><p> <strong>目的</strong>：<strong>对所要匹配的字符串（在一行的）的开头和（一行的）结尾做出限制</strong></p><p><strong>使用元字符</strong>：<code>^</code>  和<code>$</code></p><p><strong>直接上例子</strong></p><p><img src="https://s2.loli.net/2022/04/14/a6dlBJMNsEDKPOX.png" alt="没有使用^or$并且没有加&quot;?&quot;"></p><br><p><strong>仔细分析</strong>：</p><pre class=" language-java"><code class="language-java">首先，<span class="token string">"&lt;"</span>匹配第一个字符，随便后的转移之后的<span class="token string">"?"</span>匹配第二个字符，xml类似，重点：<span class="token string">".*"</span>将匹配零个或者多个字符，而这里注意，<span class="token string">"."</span>是一个贪婪行字符，如果其后不加<span class="token string">"?"</span>进行修饰为<span class="token string">"懒惰型字符"</span><span class="token punctuation">,</span>那么会出现意想不到的后果，                          上图中这绝不是我们想要的结果，下图中的第三行<span class="token string">"看似没有问题"</span>，如若自己看就会发现，<span class="token number">1</span><span class="token punctuation">.</span>在这一行最后的<span class="token string">"   and?>"</span>竟然也被匹配了进去！！<span class="token number">2</span><span class="token punctuation">.</span>类似的错误同样出现在倒数第三行。这就印证了<span class="token string">"."</span>这一贪婪型字符它饕餮般的行径（注意：此处正对应着第五章最后一部分的小知识）如何解决？加上<span class="token string">"?"</span><span class="token operator">!</span></code></pre><p><img src="https://s2.loli.net/2022/04/14/ilr5uMFa2bCoXe4.png" alt="加上了&quot;?&quot;"></p><p><strong>但是</strong>：</p><pre class=" language-java"><code class="language-java">问题并没有得到完美解决，尽管我们匹配出了所有的目标，但是我们还要求所匹配的字段是： 在一行的开头也就是说第三、五、六个匹配是本不该被匹配的即：我们要对模式字符串的一行开头做出限制</code></pre><p><strong>而这正是”^”元字符大显身手的时候</strong></p><p><strong>注意</strong>：</p><pre class=" language-java"><code class="language-java">还记得吗？我们在第<span class="token number">3</span>章里已经见识过元字符<span class="token operator">^</span>了，但那时的它是一个用来对字符集合进行“求非”操作的元字符。那它还怎么用来表明一个字符串的开头呢？<span class="token operator">^</span>是几个有着多种用途的元字符之一。只有当它出现在一个字符集合里（被放在<span class="token punctuation">[</span>和<span class="token punctuation">]</span>之间）并紧跟在左方括号<span class="token punctuation">[</span>的后面时，它才能发挥“求非”作用。如果是在一个字符集合的外面并位于一个模式的开头，<span class="token operator">^</span>将匹配字符串的开头。</code></pre><p><strong>加上”^”后效果如下图</strong></p><p><img src="https://s2.loli.net/2022/04/14/UvqrNjgGa4teT2P.png" alt="加上&quot;^&quot;"></p><p><strong>注意</strong>：</p><p><strong>这里通常写成</strong>  </p><pre class=" language-java"><code class="language-java"><span class="token operator">^</span>\s<span class="token operator">*</span>xml\<span class="token operator">?</span><span class="token punctuation">.</span>*<span class="token operator">?</span>\<span class="token operator">?</span><span class="token operator">></span></code></pre><p><strong>类似的元字符”$”用来修饰字符串的末尾处</strong></p><p><strong>目的</strong>： <strong>标签的后面不应该再有任何实际内容</strong></p><p><strong>例子</strong>：</p><p><img src="https://s2.loli.net/2022/04/14/L32WB5FjqthrINV.png" alt="使用&quot;$&quot;"></p><br><p><strong>小结</strong></p><pre class=" language-java"><code class="language-java">正则表达式不仅可以用来匹配任意长度的文本块，还可以用来匹配出现在字符串中特定位置的文本。\b用来指定一个单词边界（\B刚好相反）。<span class="token operator">^</span>和$用来指定字符串边界（字符串的开头和字符串的结束）。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 正则表达式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> learn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>正则表达式_语法学习_5</title>
       <link href="/2022/04/12/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_5-/"/>
       <url>/2022/04/12/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_5-/</url>
