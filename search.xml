@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>正则表达式_语法学习_9(前后查找)</title>
+      <link href="/2022/04/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_9(%E5%89%8D%E5%90%8E%E6%9F%A5%E6%89%BE)/"/>
+      <url>/2022/04/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_9(%E5%89%8D%E5%90%8E%E6%9F%A5%E6%89%BE)/</url>
+      
+        <content type="html"><![CDATA[<p><strong>一</strong>、<strong>向前查找</strong></p><p><strong>概述</strong>：<strong>向前查找就是指定了一个必须匹配但不在结果中返回的模式</strong></p><p><strong>语法形式</strong>：<strong>其实就是一个以</strong><code>?=</code> <strong>开头的子表达式，需要被匹配的文本跟在”?”之后</strong></p><p><strong>提示</strong>：</p><pre class=" language-java"><code class="language-java">提示 有些正则表达式文档使用术语“消费”（consume）来表述“匹配和返回文本”的含义。在向前查找里，被匹配的文本不包含在最终返回的匹配结果里，这被称为“不消费”。</code></pre><p><strong>例子</strong>：</p><p><img src="https://s2.loli.net/2022/04/15/6EozZUQ1bnW2i5M.png" alt="向前查找"></p><p><strong>分析</strong>：</p><pre class=" language-java"><code class="language-java"><span class="token string">".+"</span>匹配至少一个字符，这对应着URL的协议名，显然我们也只需要协议名，并不需要再往后的内容，也是说说我们只要消费协议名，因此我们就可以使用向前查找，<span class="token string">"?=:"</span>匹配到<span class="token string">":"</span>，但是并不消费<span class="token string">":"</span>，也就是不会返回匹配到的结果，</code></pre><p><strong>注意</strong>：</p><pre class=" language-java"><code class="language-java">向前查找（和先后查找）匹配其实本身是有返回结果的，只不过，这个结果的返回长度永远是<span class="token number">0</span>而已，因此，前后查找模式有时也被叫做，零宽度（zero<span class="token operator">-</span>width）匹配操作</code></pre><p><strong>二</strong>、<strong>向后查找</strong></p><p><strong>语法</strong>： <code>(?&lt;=)</code></p><p><strong>例子</strong></p><p><img src="https://s2.loli.net/2022/04/15/4zih6n78sWuaSOy.png" alt="向后查找"></p><p><strong>向前查找和向后查找的结合</strong></p><p><strong>直接上例子</strong></p><p><img src="https://s2.loli.net/2022/04/15/a1WvcZGqJXBKM4r.png" alt="向前查找和向后查找的结合"></p><pre class=" language-java"><code class="language-java">问题解决了。<span class="token punctuation">(</span><span class="token operator">?</span><span class="token operator">&lt;=</span><span class="token operator">&lt;</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>iI<span class="token punctuation">]</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>lL<span class="token punctuation">]</span><span class="token punctuation">[</span>eE<span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">)</span>是一个向后查找操作，它匹配（但不消费）<span class="token operator">&lt;</span>TITLE<span class="token operator">></span>；而<span class="token punctuation">(</span><span class="token operator">?</span><span class="token operator">=</span><span class="token operator">&lt;</span><span class="token operator">/</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>iI<span class="token punctuation">]</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>lL<span class="token punctuation">]</span><span class="token punctuation">[</span>eE<span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">)</span>是一个向前查找操作，它匹配（但不消费）<span class="token operator">&lt;</span><span class="token operator">/</span>TITLE<span class="token operator">></span>。最终返回的匹配结果包含且仅包含标题文字（用术语来说，就是只有标题文字被消费了）。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 正则表达式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> learn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>正则表达式_语法学习_7(使用子表达式-回溯引用)</title>
+      <link href="/2022/04/14/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_7(%E4%BD%BF%E7%94%A8%E5%AD%90%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%9B%9E%E6%BA%AF%E5%BC%95%E7%94%A8)/"/>
+      <url>/2022/04/14/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_7(%E4%BD%BF%E7%94%A8%E5%AD%90%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%9B%9E%E6%BA%AF%E5%BC%95%E7%94%A8)/</url>
+      
+        <content type="html"><![CDATA[<p><strong>一、</strong> <strong>回溯引用匹配</strong></p><p><strong>功能</strong>：<code>\n</code>  <strong>即代表着第n个子表达式所匹配的内容</strong></p><p><strong>例一</strong>：</p><p><strong>目的</strong>：**匹配出HTML中成对出现的标题标签（<H1>到<H6>，以及配对的                                        如下图 </H6></H1></p><p><img src="https://s2.loli.net/2022/04/15/LgetudVsD5olpFE.png" alt="\1"></p><p><strong>分析</strong></p><pre class=" language-java"><code class="language-java">第一个字句：<span class="token string">"([1-9])"</span>匹配的是这一组标题标签的数字部分，而最后的<span class="token string">"\1"</span>正代表着相同的数字内容，所以只有第一个（即第二行被成功匹配）其余两对标签则因为开始和结束标签中的数字不相等而不被匹配由此可以看出，回溯引用指的是模式的后半部分去引用在前半部分中定义的子表达式</code></pre><p><strong>注意</strong>：</p><pre class=" language-java"><code class="language-java">回溯引用匹配通常从<span class="token number">1</span>开始计数（\<span class="token number">1</span>、\<span class="token number">2</span>，等等）。在许多实现里，第<span class="token number">0</span>个匹配（\<span class="token number">0</span>）可以用来代表整个正则表达式。</code></pre><p><strong>二</strong>：<strong>回溯引用在替换操作上的应用</strong></p><p><strong>目的</strong>：<strong>将文本中的邮件地址更改为可点击链接</strong></p><p><strong>使用</strong>：<code>$n</code></p><br><p><img src="https://s2.loli.net/2022/04/15/nG8RF7gwqfAQJcU.png" alt="$1"></p><p><strong>分析</strong></p><pre class=" language-java"><code class="language-java">第一个子表达式匹配出了一个电子邮箱地址，$<span class="token number">1</span>便代表着那第一个子表达式匹配出的内容</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 正则表达式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> learn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>正则表达式_语法学习_6（位置匹配）</title>
       <link href="/2022/04/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_6%EF%BC%88%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D%EF%BC%89/"/>
       <url>/2022/04/13/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_6%EF%BC%88%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D%EF%BC%89/</url>
