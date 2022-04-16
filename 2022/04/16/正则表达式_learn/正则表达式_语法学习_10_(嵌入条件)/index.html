@@ -4,13 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="正则表达式_语法学习_9(前后查找), something for nothing">
-    <meta name="description" content="一、向前查找
-概述：向前查找就是指定了一个必须匹配但不在结果中返回的模式
-语法形式：其实就是一个以?= 开头的子表达式，需要被匹配的文本跟在”?”之后
-提示：
-提示 有些正则表达式文档使用术语“消费”（consume）来表述“匹配
-和返回文">
+    <meta name="keywords" content="正则表达式_语法学习_10_(嵌入条件), something for nothing">
+    <meta name="description" content="
+
+一、回溯引用判断到目前为止
+&#34;?(匹配前一个字符，或者表达式，如果存在的话)&#34;
+&#34;?=(向前匹配，如果存在的话)&#34;
+&#34;?&amp;lt;=（向后匹配，如果存在的话）&#34;
+
+条件语句:
+(?(backreference)true-reges)
+
+例">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +27,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>正则表达式_语法学习_9(前后查找) | 朗郁</title>
+    <title>正则表达式_语法学习_10_(嵌入条件) | 朗郁</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -314,12 +319,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">正则表达式_语法学习_9(前后查找)</h1>
+                    <h1 class="description center-align post-title">正则表达式_语法学习_10_(嵌入条件)</h1>
                 </div>
             </div>
         </div>
@@ -460,7 +465,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-15
+                    2022-04-16
                 </div>
                 
 
@@ -469,7 +474,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    402
+                    970
                 </div>
                 
 
@@ -486,41 +491,83 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>一</strong>、<strong>向前查找</strong></p>
-<p><strong>概述</strong>：<strong>向前查找就是指定了一个必须匹配但不在结果中返回的模式</strong></p>
-<p><strong>语法形式</strong>：<strong>其实就是一个以</strong><code>?=</code> <strong>开头的子表达式，需要被匹配的文本跟在”?”之后</strong></p>
-<p><strong>提示</strong>：</p>
-<pre class=" language-java"><code class="language-java">提示 有些正则表达式文档使用术语“消费”（consume）来表述“匹配
-和返回文本”的含义。在向前查找里，被匹配的文本不包含在最终返
-回的匹配结果里，这被称为“不消费”。
+                <br>
+
+<h1 id="一、回溯引用判断"><a href="#一、回溯引用判断" class="headerlink" title="一、回溯引用判断"></a>一、回溯引用判断</h1><p><strong>到目前为止</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token string">"?(匹配前一个字符，或者表达式，如果存在的话)"</span>
+<span class="token string">"?=(向前匹配，如果存在的话)"</span>
+<span class="token string">"?&lt;=（向后匹配，如果存在的话）"</span>
 </code></pre>
-<p><strong>例子</strong>：</p>
-<p><img src="https://s2.loli.net/2022/04/15/6EozZUQ1bnW2i5M.png" alt="向前查找"></p>
+<p><strong>条件语句</strong>:</p>
+<pre class=" language-java"><code class="language-java"><span class="token punctuation">(</span><span class="token operator">?</span><span class="token punctuation">(</span>backreference<span class="token punctuation">)</span><span class="token boolean">true</span><span class="token operator">-</span>reges<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>例一</strong></p>
+<p><strong>目的</strong>：</p>
+<pre class=" language-java"><code class="language-java"><span class="token string">"需要把一段文本里的&lt;IMG>标签全都找出来；不仅如此，如果某个&lt;IMG>"</span>
+<span class="token string">"标签是一个链接（被括在&lt;A>和&lt;/A>标签之间）的话，你还要把整个链"</span>
+<span class="token string">"接标签匹配出来。"</span>
+</code></pre>
+<p><img src="https://s2.loli.net/2022/04/16/t4EUQvl573uXerO.png" alt="回溯引用条件语句"></p>
 <p><strong>分析</strong>：</p>
-<pre class=" language-java"><code class="language-java"><span class="token string">".+"</span>匹配至少一个字符，这对应着URL的协议名，显然我们也只需要协议名，
-并不需要再往后的内容，也是说说我们只要消费协议名，因此
-我们就可以使用向前查找，<span class="token string">"?=:"</span>匹配到<span class="token string">":"</span>，但是
-并不消费<span class="token string">":"</span>，也就是不会返回匹配到的结果，
+<pre class=" language-java"><code class="language-java"><span class="token number">1</span>，所要匹配的文本中，<span class="token operator">&lt;</span>img<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>img<span class="token operator">></span>标签是无论如何都要求被匹配出的内容
+<span class="token number">2</span>，<span class="token operator">&lt;</span>A<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>A<span class="token operator">></span>标签则成对出现，当且仅当有前者的时候，后者才可出现
+<span class="token number">3</span>，因此条件语句的<span class="token string">"backreferencr"</span>为<span class="token string">"(&lt;[Aa]\s+[^>]+\s*)>"</span><span class="token punctuation">,</span>
+此<span class="token string">"backreferencr"</span>匹配<span class="token operator">&lt;</span>A<span class="token operator">></span>标签及其属性，
+当且仅当它成功匹配时，其后的<span class="token string">"true-regex"</span>即<span class="token string">"\s*\/[Aa]>"</span>才回去匹配
 </code></pre>
 <p><strong>注意</strong>：</p>
-<pre class=" language-java"><code class="language-java">向前查找（和先后查找）匹配其实本身是有返回结果的，
-只不过，
-这个结果的返回长度永远是<span class="token number">0</span>而已，
-因此，前后查找模式有时也被叫做，
-零宽度（zero<span class="token operator">-</span>width）匹配操作
+<pre class=" language-java"><code class="language-java">判断<span class="token string">"backference"</span>是否匹配成功的依据表达式（也就是回溯引用）
+仅仅是指第几个子表达式<span class="token punctuation">(</span>就是被括号包围住的式子<span class="token punctuation">)</span>
 </code></pre>
-<p><strong>二</strong>、<strong>向后查找</strong></p>
-<p><strong>语法</strong>： <code>(?&lt;=)</code></p>
-<p><strong>例子</strong></p>
-<p><img src="https://s2.loli.net/2022/04/15/4zih6n78sWuaSOy.png" alt="向后查找"></p>
-<p><strong>向前查找和向后查找的结合</strong></p>
-<p><strong>直接上例子</strong></p>
-<p><img src="https://s2.loli.net/2022/04/15/a1WvcZGqJXBKM4r.png" alt="向前查找和向后查找的结合"></p>
-<pre class=" language-java"><code class="language-java">问题解决了。<span class="token punctuation">(</span><span class="token operator">?</span><span class="token operator">&lt;=</span><span class="token operator">&lt;</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>iI<span class="token punctuation">]</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>lL<span class="token punctuation">]</span><span class="token punctuation">[</span>eE<span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">)</span>是一个向后查找操作，
-它匹配（但不消费）<span class="token operator">&lt;</span>TITLE<span class="token operator">></span>；而<span class="token punctuation">(</span><span class="token operator">?</span><span class="token operator">=</span><span class="token operator">&lt;</span><span class="token operator">/</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>iI<span class="token punctuation">]</span><span class="token punctuation">[</span>tT<span class="token punctuation">]</span><span class="token punctuation">[</span>lL<span class="token punctuation">]</span><span class="token punctuation">[</span>eE<span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">)</span>是
-一个向前查找操作，它匹配（但不消费）<span class="token operator">&lt;</span><span class="token operator">/</span>TITLE<span class="token operator">></span>。最终返回的匹配
-结果包含且仅包含标题文字（用术语来说，就是只有标题文字被消费
-了）。
+<p><strong>(我的误区):</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token string">"认为第一个子表达式其后紧跟的?也属于判断表达式"</span>
+<span class="token string">"然而事实上这个"</span><span class="token operator">?</span><span class="token string">"只是为了在任何情况下"</span>
+<span class="token string">"(即无所谓"</span>backreference<span class="token string">"是否有成功匹配)"</span>
+<span class="token string">"它都会去执行后面&lt;IMG>标签的匹配工作"</span>
+</code></pre>
+<p><strong>注意</strong>：</p>
+<pre class=" language-java"><code class="language-java"><span class="token string">"?(1)检查第一个回溯引用是否存在。在条件里，回溯引用编"</span>
+<span class="token string">"号（本例中的1）不需要被转义。因此，?(1)是正确的，"</span>
+<span class="token string">"?(\1)不正确（但后者通常也能工作）。"</span>
+</code></pre>
+<p><strong>例二：“(?(backer- ference)true-regex|false-regex)”的应用</strong></p>
+<p><strong>目的：匹配北美电话号码</strong></p>
+<p><strong>background</strong>:</p>
+<pre class=" language-java"><code class="language-java"><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span><span class="token number">456</span><span class="token operator">-</span><span class="token number">7890</span>和<span class="token number">123</span><span class="token operator">-</span><span class="token number">456</span><span class="token operator">-</span><span class="token number">7890</span>都是可接受的北美电话号码格式，
+而<span class="token number">1234567890</span>、<span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">456</span><span class="token operator">-</span><span class="token number">7890</span>和<span class="token punctuation">(</span><span class="token number">123</span><span class="token operator">-</span><span class="token number">456</span><span class="token operator">-</span><span class="token number">7890</span><span class="token punctuation">)</span>虽然都包含着数
+目正确的数字字符，但它们的格式都不对。如果让你来编写一个正则表
+达式并让它只匹配可接受的格式，不匹配其他格式，你会怎么做？
+</code></pre>
+<p><img src="https://s2.loli.net/2022/04/16/acOnfoUDhqsg8Hx.png" alt="ture-regex_and_flase-regex"></p>
+<p><strong>分析</strong>：</p>
+<pre class=" language-java"><code class="language-java"><span class="token string">"在此例中，可能会出现不同情况的符号组合为:"</span>
+<span class="token string">"1,有"</span><span class="token punctuation">(</span><span class="token string">"的时候，则必有"</span><span class="token punctuation">)</span><span class="token string">",并且此时没有"</span><span class="token operator">-</span><span class="token string">" "</span>
+<span class="token string">"2,没有"</span><span class="token punctuation">(</span><span class="token string">"的时候，则必有"</span><span class="token operator">-</span><span class="token string">",并且此时没有"</span><span class="token punctuation">)</span><span class="token string">" "</span>
+<span class="token string">"因此被判断的回溯引用为:(\())"</span>
+</code></pre>
+<h2 id="二、前后查找条件"><a href="#二、前后查找条件" class="headerlink" title="二、前后查找条件"></a>二、前后查找条件</h2><p><strong>目的：</strong></p>
+<pre class=" language-java"><code class="language-java">作为一个例子，请你思考一下怎样匹配美国的邮政编码（简称ZIP编
+码）。美国邮政编码有两种格式，一种是<span class="token number">12345</span>形式的ZIP格式，另一
+种是<span class="token number">12345</span><span class="token operator">-</span><span class="token number">6789</span>形式的ZIP<span class="token operator">+</span><span class="token number">4</span>格式。只有ZIP<span class="token operator">+</span><span class="token number">4</span>格式才必须使用连字符
+来分隔前<span class="token number">5</span>位和后<span class="token number">4</span>位数字。
+</code></pre>
+<p><strong>分析</strong>：</p>
+<pre class=" language-java"><code class="language-java"><span class="token string">"此例中，前五位数字是必须的，"</span>
+<span class="token string">"当且仅当五位数字其后紧跟着"</span><span class="token operator">-</span><span class="token string">"的时候，"</span><span class="token operator">-</span><span class="token string">"的后面才会有另外的四位数字"</span>
+<span class="token string">"因此，变化的因素仅仅是"</span><span class="token operator">-</span>\d<span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">}</span><span class="token string">",或者说，只有在"</span><span class="token operator">-</span><span class="token string">"之前存在合法的内容时"</span>
+<span class="token string">"才会去匹配其后的内容"</span>
+</code></pre>
+<p><strong>例一</strong></p>
+<p><img src="https://s2.loli.net/2022/04/16/UFrvkHYXPeiLwoM.png" alt="前后查找条件"></p>
+<p>**思考(回溯引用条件与前后查找条件的特点)**：</p>
+<pre class=" language-java"><code class="language-java"><span class="token string">"1,回溯引用条件更适合去判断更为具体的内容对文本的影响，因为其自身的表达式就是具体的匹配字句"</span>
+<span class="token string">"2,而前后查找条件更适合去判断某几个特殊字符的位置，以及存在与否对整个文本内容的影响"</span>
+</code></pre>
+<p><strong>注意</strong>：</p>
+<pre class=" language-java"><code class="language-java">前后查找条件只在一个向前查找或向后查找操作取得成功的情况下才允
+许一个表达式被使用。定义一个前后查找条件的语法与定义一个回溯引
+用条件的语法大同小异——只需把回溯引用（括号里的回溯引用编号）
+替换为一个完整的前后查找表达式就行了
 </code></pre>
 
                 
@@ -548,7 +595,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2022/04/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_9(%E5%89%8D%E5%90%8E%E6%9F%A5%E6%89%BE)/">http://example.com/2022/04/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_9(%E5%89%8D%E5%90%8E%E6%9F%A5%E6%89%BE)/</a>
+                    <a href="http://example.com/2022/04/16/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_10_(%E5%B5%8C%E5%85%A5%E6%9D%A1%E4%BB%B6)/">http://example.com/2022/04/16/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_10_(%E5%B5%8C%E5%85%A5%E6%9D%A1%E4%BB%B6)/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -759,9 +806,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/04/16/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_10_(%E5%B5%8C%E5%85%A5%E6%9D%A1%E4%BB%B6)/">
                     <div class="card-image">
@@ -779,9 +827,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -794,6 +842,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -812,13 +861,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/04/14/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_7(%E4%BD%BF%E7%94%A8%E5%AD%90%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%9B%9E%E6%BA%AF%E5%BC%95%E7%94%A8)/">
+                <a href="/2022/04/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_9(%E5%89%8D%E5%90%8E%E6%9F%A5%E6%89%BE)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="正则表达式_语法学习_7(使用子表达式-回溯引用)">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="正则表达式_语法学习_9(前后查找)">
                         
-                        <span class="card-title">正则表达式_语法学习_7(使用子表达式-回溯引用)</span>
+                        <span class="card-title">正则表达式_语法学习_9(前后查找)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -829,7 +878,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-15
                             </span>
                         <span class="publish-author">
                             
