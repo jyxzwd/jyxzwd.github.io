@@ -1,0 +1,370 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>java-modularity | 居云岫</title><meta name="author" content="liyazzi"><meta name="copyright" content="liyazzi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="CONCEPT  在java9，java引入了一种不同于，或者可以说是在 package 之上的一个新的抽象层–&gt; JPMS。 什么是module。 module是一系列相关的package与resource的集合 module的两种表现形式： jar与已编译项目   Module-Properties  name ： Module的name命名方式与package相同，goupId反写。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-modularity">
+<meta property="og:url" content="https://langyu.world/2024/04/22/java-learn/java-modularity/index.html">
+<meta property="og:site_name" content="居云岫">
+<meta property="og:description" content="CONCEPT  在java9，java引入了一种不同于，或者可以说是在 package 之上的一个新的抽象层–&gt; JPMS。 什么是module。 module是一系列相关的package与resource的集合 module的两种表现形式： jar与已编译项目   Module-Properties  name ： Module的name命名方式与package相同，goupId反写。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/06/19/BHmELrwgPaWXCxp.jpg">
+<meta property="article:published_time" content="2024-04-22T13:25:52.000Z">
+<meta property="article:modified_time" content="2024-10-20T11:20:22.316Z">
+<meta property="article:author" content="liyazzi">
+<meta property="article:tag" content="learn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/06/19/BHmELrwgPaWXCxp.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://langyu.world/2024/04/22/java-learn/java-modularity/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: liyazzi","link":"链接: ","source":"来源: 居云岫","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'java-modularity',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-20 19:20:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/self/font.css"><link rel="stylesheet" href="/self/my.css"><link rel="stylesheet" href="/self/universe.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/self/liyazzi.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/06/19/BHmELrwgPaWXCxp.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="居云岫"><span class="site-name">居云岫</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">java-modularity</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-04-22T13:25:52.000Z" title="发表于 2024-04-22 21:25:52">2024-04-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java/">java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title="java-modularity"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2024/04/22/java-learn/java-modularity/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="concept"><a class="markdownIt-Anchor" href="#concept"></a> CONCEPT</h2>
+<blockquote>
+<p>在java9，java引入了一种不同于，或者可以说是在 <code>package</code> 之上的一个新的抽象层–&gt; JPMS。</p>
+<p>什么是module。 module是一系列相关的package与resource的集合</p>
+<p>module的两种表现形式： <code>jar</code>与<code>已编译项目</code></p>
+</blockquote>
+<h3 id="module-properties"><a class="markdownIt-Anchor" href="#module-properties"></a> Module-Properties</h3>
+<ul>
+<li><code>name</code> ： Module的<code>name</code>命名方式与<code>package</code>相同，<code>goupId</code>反写。</li>
+<li><code>requires | uses</code> Module所依赖的其他模块 | 服务。所有模块都直接或者间接依赖<code>java.base</code>。</li>
+<li><code>exports</code>Module公开的可以被其他模块依赖的 package</li>
+<li><code>provides</code> Module 提供的服务</li>
+<li><code>open&lt;module level&gt; | opens&lt;package level&gt;</code> 其他module对私有包的反射权限</li>
+</ul>
+<h3 id="module-type"><a class="markdownIt-Anchor" href="#module-type"></a> Module-Type</h3>
+<ul>
+<li><strong>系统Module:</strong> 包括根据javaSE标准实现的<code>java</code>开头的module和 jdk内部使用的module</li>
+<li><strong>应用级别Module:</strong> 具有<code>module-info.java</code>描述文件的我们自定义与第三方jar或者编译项目</li>
+<li><strong>自动Module:</strong> 被添加在<code>--module-path</code>模块路径上的<strong>没有<code>module-info.java</code></strong> 的<code>jar</code>,他们通常取 <code>example-1.0-GA.jar</code>中的<code>example</code>作为module名，可以用<code>jdeps</code>查看到</li>
+<li><strong>未命名Module:</strong> 被添加在 <code>--class-path</code> 类路径上的  <code>class</code>或者 <code>jar</code>都被加到 <code>Unnamed Module</code></li>
+</ul>
+<h3 id="module-infojava"><a class="markdownIt-Anchor" href="#module-infojava"></a> module-info.java</h3>
+<p><strong>参考 <a target="_blank" rel="noopener" href="https://www.baeldung.com/java-modularity#module-declarations">baeldung-java-modularity-module-declarations</a></strong></p>
+<h2 id="examples"><a class="markdownIt-Anchor" href="#examples"></a> Examples</h2>
+<h3 id="simple-multiple-modules"><a class="markdownIt-Anchor" href="#simple-multiple-modules"></a> Simple-Multiple-Modules</h3>
+<p>参考 <strong><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-modularity#putting-it-all-together">baeldung</a></strong></p>
+<h3 id="maven-multiple-modules"><a class="markdownIt-Anchor" href="#maven-multiple-modules"></a> Maven-Multiple-Modules</h3>
+<h4 id="cteate-maven-project"><a class="markdownIt-Anchor" href="#cteate-maven-project"></a> Cteate-Maven-Project</h4>
+<blockquote>
+<p>jdk为openjdk17。尝试构建带有其他依赖的maven模块化项目，包括未模块化的依赖与已经模块化的依赖。</p>
+</blockquote>
+<h5 id="project-struct"><a class="markdownIt-Anchor" href="#project-struct"></a> Project-Struct</h5>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2024/04/22/java-learn/java-modularity/42c92bc4bb9963c6590693c25a6abd18.png" alt="screen-capture"></p>
+<p>与之前不同的是，在<code>java</code>源码目录下，多了<code>module-info.java</code>文件。</p>
+<h5 id="pomxml"><a class="markdownIt-Anchor" href="#pomxml"></a> pom.xml</h5>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.source</span>&gt;</span>17<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.source</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">maven.compiler.target</span>&gt;</span>17<span class="hljs-tag">&lt;/<span class="hljs-name">maven.compiler.target</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name">project.build.sourceEncoding</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.13<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.fastjson2<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>fastjson2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.10<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<p>由于是模块化的project，所以如果依赖不仅要在<code>pom.xml</code>中声明引入，并且只要创建了  <code>module-info.java</code>文件，就要在其中写入相关配置，否则会编译失败。</p>
+<h5 id="module-infojava-2"><a class="markdownIt-Anchor" href="#module-infojava-2"></a> <code>module-info.java</code></h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">module</span> moduleA &#123;<br>    <span class="hljs-keyword">exports</span> world.langyu.provider;<br>    <span class="hljs-keyword">requires</span> org.mybatis;<br>    <span class="hljs-keyword">requires</span> com.alibaba.fastjson2;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="mainjava"><a class="markdownIt-Anchor" href="#mainjava"></a> <code>Main.java</code></h5>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> world.langyu.provider;<br><br><span class="hljs-keyword">import</span> com.alibaba.fastjson2.JSON;<br><span class="hljs-keyword">import</span> org.apache.ibatis.io.Resources;<br><span class="hljs-keyword">import</span> org.apache.ibatis.session.Configuration;<br><span class="hljs-keyword">import</span> org.apache.ibatis.session.SqlSessionFactoryBuilder;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        System.out.println(<span class="hljs-string">&quot;work dir: &quot;</span> + System.getProperty(<span class="hljs-string">&quot;user.dir&quot;</span>));<br>        run();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">Configuration</span> <span class="hljs-variable">configuration</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SqlSessionFactoryBuilder</span>()<br>                .build(Resources.getResourceAsStream(<span class="hljs-string">&quot;mybatis-config.xml&quot;</span>))<br>                .getConfiguration();<br>        System.out.println(<span class="hljs-string">&quot;moduleA&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;none modularity dep: configuration of mybatis: &quot;</span>+ configuration.getVariables());<br>        System.out.println(<span class="hljs-string">&quot;modularity dep: fastjson: &quot;</span>+ JSON.class.getName());<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>目前看起来没有任何问题，然后<code>编译</code></p>
+<h4 id="compile"><a class="markdownIt-Anchor" href="#compile"></a> Compile</h4>
+<p>在模块根部录下：</p>
+<p><code>javac -d .\target\classes -p &quot;D:\maven_local_repository\com\alibaba\fastjson2\fastjson2\2.0.10\fastjson2-2.0.10.jar;D:\maven_local_repository\org\mybatis\mybatis\3.5.13\mybatis-3.5.13.jar&quot; .\src\main\java\module-info.java .\src\main\java\world\langyu\provider\*.java</code></p>
+<p>其中</p>
+<ul>
+<li><code>-d</code>选项指定编译的输出目录。</li>
+<li><code>-p/--module-path</code>选项 指定应用代码依赖的外部模块的路径，通常是jar包路径。注意在<u>windows</u>下，参数要用<code>&quot;&quot;</code>包起来，并且多个路径之间用<code>;</code>隔开。</li>
+<li>由于是单模块，后跟 <code>module-info.java</code>文件的路径。</li>
+<li>最后列出要编译的<code>.java</code>文件的路径</li>
+</ul>
+<p>emmmm，不出意外的话就要出意外了<code>=_=</code>。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">.\src\main\java\module-info.java:4: 错误: 找不到模块: com.alibaba.fastjson2<br>    requires com.alibaba.fastjson2;<br>                        ^<br>1 个错误<br></code></pre></td></tr></table></figure>
+<p>顺着这个报错就找到了<code>fastjson2</code>的github的issue，然后是他们的一个bug，本来生个版本就可以解决了，但我想看看到底是个什么问题-&gt;<a target="_blank" rel="noopener" href="https://github.com/alibaba/fastjson2/issues/780">fastjson2-issue</a></p>
+<p>维护的人修改这个bug是去修改了<code>core/pom.xml</code></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2024/04/22/java-learn/java-modularity/ff3fab2d5c28473038752c112b73b5dd.png" alt="screen-capture"></p>
+<p>原来 <code>fastjson2</code>使用的一个<a target="_blank" rel="noopener" href="https://github.com/moditect/moditect">第三方插件</a>来做的模块化，它的编译产物还是java8的。</p>
+<p>换完版本之后顺利编译</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2024/04/22/java-learn/java-modularity/dbd0caa5f6554acecf13a7839f550dd4.png" alt="screen-capture"></p>
+<p>因为我们要依赖一些静态配置资源，copy过去。</p>
+<p>运行</p>
+<h5 id="non-modular-mode"><a class="markdownIt-Anchor" href="#non-modular-mode"></a> Non-modular-Mode</h5>
+<p><strong>执行： <code>java -cp &quot;.\target\classes;D:\maven_local_repository\com\alibaba\fastjson2\fastjson2\2.0.15\fastjson2-2.0.15.jar;D:\maven_local_repository\org\mybatis\mybatis\3.5.13\mybatis-3.5.13.jar&quot; world.langyu.provider.Main</code></strong></p>
+<ul>
+<li><code>cp</code>指定所有涉及到的类路径。</li>
+<li>最后带上主类的全限定名。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2024/04/22/java-learn/java-modularity/3786ac2bef1e20ca5b2c49f9694c9883.png" alt="screen-capture"></p>
+<h5 id="run-as-simple-jar"><a class="markdownIt-Anchor" href="#run-as-simple-jar"></a> run-as-simple-jar</h5>
+<p><code>pom.xml</code>中配置<code>mainclass</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-jar-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.4<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">archive</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">manifest</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">mainClass</span>&gt;</span>world.langyu.provider.Main&lt;/mainC<br>                        lass&gt;<br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">manifest</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">archive</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+<p>首先要打成<code>jar</code>包-&gt;<code>mvn clean package</code></p>
+<p><strong>执行：<code>java -p &quot;D:\maven_local_repository\com\alibaba\fastjson2\fastjson2\2.0.15\fastjson2-2.0.15.jar;D:\maven_local_repository\org\mybatis\mybatis\3.5.13\mybatis-3.5.13.jar&quot; --add-modules com.alibaba.fastjson2,org.mybatis -jar .\target\moduleA-1.0-SNAPSHOT.jar</code></strong></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><code>-p</code>指定所依赖的<code>jar</code>的路径，<code>-p</code>的全称是<code>--module-path</code>,虽说是<code>module</code>，但是 JPMS中，<code>module</code>的分发产物依然是<code>jar</code>形式。</li>
+<li><code>fastjson2</code>是个模块化的jar，可以在 <code>fastjson2-2.0.15.jar!\META-INF\versions\9\module-info.class</code>找到模块描述文件，里面自然有module-name，所以在后面<code>--add-modules</code>指定的参数中就可以指定其定义的<code>com.alibaba.fastjson2</code>。但奇怪的是，<code>mybatis</code>分发的jar中我并没有找到<code>module-info.java</code>，这个名称我是从在编写<code>moduleA</code>的<code>module-info.java</code>文件时，<code>idea</code>提示我的所要<code>requires</code>的module-name,但按理来说，如果你没有模块化，那就会转为<code>Automatic-Module</code>,模块名默认是<code>xxxlib-1.0-xx.jar</code>中的<code>xxxlib</code>，也就是版本号前面的内容，但这时的<code>mybatis</code>并符合预期。</li>
+</ul>
+<p>于是我顺藤摸瓜，去翻了<code>mybatis</code>的jar，然后在其中的<code>META_INF/MANIFEST.MF</code>中找到了</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2024/04/22/java-learn/java-modularity/7060d4528070a203486153c501e585c3.png" alt="86a11f912c46fe4bc8d51af9602e27d8.png"></p>
+<p>有种解密的味道哈哈哈—~~~</p>
+<p>原来<code>mybatis</code>这个编译的版本是<code>jdk17</code>，看来<code>mybatis</code>模块化的做法很简单：</p>
+<p><strong>利用了 Automatic-Module</strong>机制：</p>
+<ol>
+<li>它没有<code>module-info.java</code>文件，当被其他开发者作为依赖添加到模块路径上(<code>-p</code>)时,他会成为一个自动模块：1. <code>export and open all packages</code> 2. <code>have full read access to every other module loaded by the module path</code></li>
+<li>通过在 <code>MANIFEST.MF</code>文件中指定<code>Automatic-Module-Name</code>来覆盖默认的module-name。</li>
+<li>要做到 <code>2.</code> 可以在<code>pom.xml</code>中配置<code>maven-jar-plugin</code></li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-jar-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">archive</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">manifestEntries</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">Automatic-Module-Name</span>&gt;</span>$&#123;module.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">Automatic-Module-Name</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">manifestEntries</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">archive</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>然后其他模块就可以用<code>$&#123;module.name&#125;</code>来生命对这个模块的依赖。</p>
+<p>顺带提一嘴，我在测试的时候发现，<code>idea</code>可以在你指定了<code>Automatic-Module-Name</code>或者这个模块的 <code>artifactId</code>(这个是因为如果不指定jar的名称，默认是<code>$&#123;artifactId&#125;-&#123;version&#125;.jar</code>)然后<code>reload maven projects</code>后 提示或识别出来的module-name。</p>
+<p>一直很想找到能这样做的出处(在<code>MANIFEST.MF</code>中指定 <code>Automatic-Module-Name</code>),推测是<code>JEP</code>讨论出来的。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mail.openjdk.org/pipermail/jpms-spec-experts/2017-February/000582.html">mail.openjdk-how to name modules, automatic and otherwise</a></li>
+<li><a target="_blank" rel="noopener" href="https://mail.openjdk.org/pipermail/jigsaw-dev/2017-January/011106.html">Automatic module names</a></li>
+<li><a target="_blank" rel="noopener" href="https://maven.apache.org/shared/maven-archiver/examples/manifestEntries.html">maven-jar-plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.java/learn/modules/automatic-module/#module-resolution-for-automatic-modules">dev.java</a></li>
+</ul>
+<h4 id="编译与运行中有关unnamed-module的问题"><a class="markdownIt-Anchor" href="#编译与运行中有关unnamed-module的问题"></a> 编译与运行中有关Unnamed-Module的问题</h4>
+<h5 id="什么是unnamed-module"><a class="markdownIt-Anchor" href="#什么是unnamed-module"></a> 什么是Unnamed-Module</h5>
+<blockquote>
+<p>被添加到–class-path中的classes与jar都会被加到Unnamed-Module中。</p>
+<p>Unnamed-Module具有如下特性：</p>
+<ol>
+<li>Export and open all its packages to every other module, like the Automatic Module.</li>
+<li>Other module can only access classes in Unname-Module by reflection</li>
+<li>The declaration of dependencies by the unnamed module on other modules is futile at runtime.</li>
+</ol>
+</blockquote>
+<p>未命名模块就是所有放在<code>-classpath</code>上的类、模块的一个大杂烩模块。因为是<code>未命名</code>，所以不能被其他模块直接依赖，其他模块只能通过反射的方式访问其中的类，对应<code>1、2</code>两点。</p>
+<p>关于第三点：未命名模块中对外部声明的依赖（即使是在<code>module-info.java</code>中生命的  <code>require</code>）不会被模块系统自动解析和加载，除非此时未命名模块是<code>root module</code>其中之一。</p>
+<h5 id="问题复现"><a class="markdownIt-Anchor" href="#问题复现"></a> 问题复现</h5>
+<p>比如：<strong>现在有A,B两个jar，jarA，jarB都具有module-info.java，也就是都是模块化后的jar，jarB代码层面只依赖于jarA()。</strong></p>
+<p><strong>jarB：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">module</span> moduleB &#123;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><strong>jarA:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">module</span> moduleA &#123;<br>    <span class="hljs-keyword">requires</span> org.mybatis;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p><strong>执行：</strong> <code>java -classpath D:\source-read\java-module\moduleA\target\moduleA-1.0-SNAPSHOT.jar -p &quot;D:\source-read\java-module\moduleB\target\moduleB-1.0-SNAPSHOT.jar;D:\maven_local_repository\org\mybatis\mybatis\3.5.13\mybatis-3.5.13.jar&quot; -m moduleB/world.langyu.consumer.Main</code></p>
+<p><strong>注意此时我们将 jarA放在了 类路径上，所以jarA是Unnamed-Module的一部分。所以即使moduleA声明了对mybatis的依赖，但还是会得到如下报错：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">Caused by: java.lang.ClassNotFoundException: org.apache.ibatis.session.SqlSessionFactoryBuilder<br>        at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)<br>        at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)<br>        at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)<br>        ... 6 more<br><br></code></pre></td></tr></table></figure>
+<h5 id="问题分析"><a class="markdownIt-Anchor" href="#问题分析"></a> 问题分析</h5>
+<p>在启动参数上加上<code>--show-module-resolution</code>来查看 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48339598/list-the-modules-resolved-during-the-application-startup">modules resolved during app startup</a>。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">root moduleB file:///D:/source-read/java-module/moduleB/target/moduleB-1.0-SNAPSHOT.jar<br>java.base binds java.desktop jrt:/java.desktop<br>java.base binds jdk.security.auth jrt:/jdk.security.auth<br>java.base binds java.management jrt:/java.management<br>java.base binds jdk.localedata jrt:/jdk.localedata<br>java.base binds java.logging jrt:/java.logging<br>...<br></code></pre></td></tr></table></figure>
+<p>看来mybatis的模块并没有被解析加载到运行时环境中。</p>
+<p>这就要提到java模块化系统中的模块发现机制(<a target="_blank" rel="noopener" href="https://docs.oracle.com/en%2Fjava%2Fjavase%2F11%2Fdocs%2Fapi%2F%2F/java.base/java/lang/module/package-summary.html#:~:text=Resolution%20is%20the%20process%20of,a%20set%20of%20root%20modules.">module resolution</a>）</p>
+<ul>
+<li>java.base是所有模块的根模块，不需要显式声明。</li>
+<li>编译与运行中，模块系统需要先确定一个或者多个root-module，然后根据这些root-module的依赖关系去<code>-p</code>指定的模块路径下寻找所有可以<code>观察到的模块（observable module）</code>然后解析加载以满足依赖，再加上<code>-cp</code>指定的类路径，就构成了编译与运行时环境。</li>
+<li>通过<code>-m</code>方式启动，<code>-m</code>指定的模块就是root-module之一。</li>
+<li>如果是传统方式<code>java [options] &lt;主类&gt; [args...]</code>，则root-module 就是 <code>java.*</code>（<code>java.base</code>、<code>java.sql</code>…）模块，也就是<code>JRE</code>。</li>
+</ul>
+<p>在这个例子中(通过<code>-m</code>)，<code>moduleB</code>是root-module，<strong><code>moduleB、java.base、jarA</code><strong>构成了运行时环境（<strong>注意即使<code>mybatis</code>模块</strong>也在模块路径上，但运行时环境不包含他。），因为<code>jarA</code>被添加到了类路径上，是个Unnamed-Module，不会有其它模块对他有显式的依赖，并且他也不可能是root-module，所以是</strong>不会去解析</strong>Unnamed-Module的依赖关系的，自然<code>mybatis</code>模块没有被加入到运行时环境中。</p>
+<h5 id="解决方案"><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h5>
+<p>这时就需要手动把<code>org.mybatis</code>从模块路径上添加到被解析模块中：<code>-add-modules org.mybatis, java.sql</code>。(mybatis模块还依赖于<code>java.sql</code>)</p>
+<p>或者</p>
+<p>直接采用传统方式启动，把类和jar都放在类路径上：<code>java -classpath &quot;D:\source-read\java-module\moduleA\target\moduleA-1.0-SNAPSHOT.jar;D:\source-read\java-module\moduleB\target\moduleB-1.0-SNAPSHOT.jar;D:\maven_local_repository\org\mybatis\mybatis\3.5.13\mybatis-3.5.13.jar&quot; world.langyu.consumer.Main</code></p>
+<br>
+<p>结束哩 😹</p>
+<p>其他相关</p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">oracle</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1281795926523938">liaoxuefeng.com/wiki</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-modularity">baeldung-java-modularity</a></p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://langyu.world">liyazzi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://langyu.world/2024/04/22/java-learn/java-modularity/">https://langyu.world/2024/04/22/java-learn/java-modularity/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://langyu.world" target="_blank">居云岫</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/learn/">learn</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/06/19/BHmELrwgPaWXCxp.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/10/java-learn/classloader(1)/" title="classloader(1)"><img class="cover" src="https://s2.loli.net/2022/06/19/wTJP7CbR2gt9Eyu.jpg" onerror="onerror=null;src='/img/jyx.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">classloader(1)</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/08/linux/nginx/" title="nginx"><img class="cover" src="https://s2.loli.net/2022/06/19/bXOIA4MQGEesgWz.jpg" onerror="onerror=null;src='/img/jyx.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">nginx</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/10/java-learn/classloader(1)/" title="classloader(1)"><img class="cover" src="https://s2.loli.net/2022/06/19/wTJP7CbR2gt9Eyu.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-10</div><div class="title">classloader(1)</div></div></a></div><div><a href="/2022/06/12/spring_boot/wiki_note/" title="wiki_note"><img class="cover" src="https://s2.loli.net/2022/06/19/zLbko19GHi25NOt.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">wiki_note</div></div></a></div><div><a href="/2022/04/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_10_(%E5%B5%8C%E5%85%A5%E6%9D%A1%E4%BB%B6)/" title="正则表达式_语法学习_10_(嵌入条件)"><img class="cover" src="https://s2.loli.net/2022/06/19/1gLTnjc72tbirqZ.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-16</div><div class="title">正则表达式_语法学习_10_(嵌入条件)</div></div></a></div><div><a href="/2022/04/09/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_2%E8%87%B34/" title="正则表达式_语法学习__2至4"><img class="cover" src="https://s2.loli.net/2022/06/19/JRPhKVMHl9bDcn1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-10</div><div class="title">正则表达式_语法学习__2至4</div></div></a></div><div><a href="/2022/04/11/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_5-/" title="正则表达式_语法学习_5"><img class="cover" src="https://s2.loli.net/2022/06/19/WodYKvmVpfI9QU3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-12</div><div class="title">正则表达式_语法学习_5</div></div></a></div><div><a href="/2022/04/12/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_learn/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0_6%EF%BC%88%E4%BD%8D%E7%BD%AE%E5%8C%B9%E9%85%8D%EF%BC%89/" title="正则表达式_语法学习_6（位置匹配）"><img class="cover" src="https://s2.loli.net/2022/06/19/TSdlYWVgP54tEGm.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-13</div><div class="title">正则表达式_语法学习_6（位置匹配）</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/self/liyazzi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">liyazzi</div><div class="author-info__description">路要朝前走，人往未来看。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jyxzwd"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#concept"><span class="toc-number">1.</span> <span class="toc-text"> CONCEPT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#module-properties"><span class="toc-number">1.1.</span> <span class="toc-text"> Module-Properties</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#module-type"><span class="toc-number">1.2.</span> <span class="toc-text"> Module-Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#module-infojava"><span class="toc-number">1.3.</span> <span class="toc-text"> module-info.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#examples"><span class="toc-number">2.</span> <span class="toc-text"> Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#simple-multiple-modules"><span class="toc-number">2.1.</span> <span class="toc-text"> Simple-Multiple-Modules</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#maven-multiple-modules"><span class="toc-number">2.2.</span> <span class="toc-text"> Maven-Multiple-Modules</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cteate-maven-project"><span class="toc-number">2.2.1.</span> <span class="toc-text"> Cteate-Maven-Project</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#project-struct"><span class="toc-number">2.2.1.1.</span> <span class="toc-text"> Project-Struct</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#pomxml"><span class="toc-number">2.2.1.2.</span> <span class="toc-text"> pom.xml</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#module-infojava-2"><span class="toc-number">2.2.1.3.</span> <span class="toc-text"> module-info.java</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mainjava"><span class="toc-number">2.2.1.4.</span> <span class="toc-text"> Main.java</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#compile"><span class="toc-number">2.2.2.</span> <span class="toc-text"> Compile</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#non-modular-mode"><span class="toc-number">2.2.2.1.</span> <span class="toc-text"> Non-modular-Mode</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#run-as-simple-jar"><span class="toc-number">2.2.2.2.</span> <span class="toc-text"> run-as-simple-jar</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%BF%90%E8%A1%8C%E4%B8%AD%E6%9C%89%E5%85%B3unnamed-module%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 编译与运行中有关Unnamed-Module的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFunnamed-module"><span class="toc-number">2.2.3.1.</span> <span class="toc-text"> 什么是Unnamed-Module</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%A4%8D%E7%8E%B0"><span class="toc-number">2.2.3.2.</span> <span class="toc-text"> 问题复现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-number">2.2.3.3.</span> <span class="toc-text"> 问题分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">2.2.3.4.</span> <span class="toc-text"> 解决方案</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/10/java-learn/classloader(1)/" title="classloader(1)"><img src="https://s2.loli.net/2022/06/19/wTJP7CbR2gt9Eyu.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="classloader(1)"/></a><div class="content"><a class="title" href="/2024/05/10/java-learn/classloader(1)/" title="classloader(1)">classloader(1)</a><time datetime="2024-05-10T02:27:52.000Z" title="发表于 2024-05-10 10:27:52">2024-05-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/22/java-learn/java-modularity/" title="java-modularity"><img src="https://s2.loli.net/2022/06/19/BHmELrwgPaWXCxp.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="java-modularity"/></a><div class="content"><a class="title" href="/2024/04/22/java-learn/java-modularity/" title="java-modularity">java-modularity</a><time datetime="2024-04-22T13:25:52.000Z" title="发表于 2024-04-22 21:25:52">2024-04-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/08/linux/nginx/" title="nginx"><img src="https://s2.loli.net/2022/06/19/bXOIA4MQGEesgWz.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="nginx"/></a><div class="content"><a class="title" href="/2023/08/08/linux/nginx/" title="nginx">nginx</a><time datetime="2023-08-08T13:50:57.000Z" title="发表于 2023-08-08 21:50:57">2023-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/05/linux/ssh/" title="ssh"><img src="https://s2.loli.net/2022/06/19/xMLl9ZvGFkr8yhQ.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="ssh"/></a><div class="content"><a class="title" href="/2023/08/05/linux/ssh/" title="ssh">ssh</a><time datetime="2023-08-05T11:17:57.000Z" title="发表于 2023-08-05 19:17:57">2023-08-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/12/spring_boot/wiki_note/" title="wiki_note"><img src="https://s2.loli.net/2022/06/19/zLbko19GHi25NOt.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="wiki_note"/></a><div class="content"><a class="title" href="/2022/06/12/spring_boot/wiki_note/" title="wiki_note">wiki_note</a><time datetime="2022-06-12T14:07:53.000Z" title="发表于 2022-06-12 22:07:53">2022-06-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2022/06/19/BHmELrwgPaWXCxp.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2024 By liyazzi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br/>
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备2022010206号</a></div><div class="footer_custom_text">就让我们各自努力，然后在高处相见。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://jyx21-tweikoo.hf.space',
+      region: '',
+      placeholder: '昵称栏输入QQ号会自动获取并补全 QQ昵称、QQ头像和QQ邮箱哦，试一试吧！',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://jyx21-tweikoo.hf.space',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    }
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><script src="/js/music.js"></script><script src="/js/twikoomy.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
