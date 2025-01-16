@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Reids基础数据结构（上） | 居云岫</title><meta name="author" content="liyazzi"><meta name="copyright" content="liyazzi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="介绍 redis 中多种基础的数据结构, 包括 sds, adlist, dict, skipList, intset, ziplist, redisObject.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reids基础数据结构（上）">
+<meta property="og:url" content="https://langyu.world/2025/01/04/redis/Redis%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%8A%EF%BC%89/index.html">
+<meta property="og:site_name" content="居云岫">
+<meta property="og:description" content="介绍 redis 中多种基础的数据结构, 包括 sds, adlist, dict, skipList, intset, ziplist, redisObject.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/06/19/9Bf4AVzSw8Wk63N.jpg">
+<meta property="article:published_time" content="2025-01-04T13:25:40.000Z">
+<meta property="article:modified_time" content="2025-01-16T05:09:25.865Z">
+<meta property="article:author" content="liyazzi">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/06/19/9Bf4AVzSw8Wk63N.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://langyu.world/2025/01/04/redis/Redis%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%8A%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: liyazzi","link":"链接: ","source":"来源: 居云岫","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Reids基础数据结构（上）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-16 13:09:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/self/font.css"><link rel="stylesheet" href="/self/my.css"><link rel="stylesheet" href="/self/universe.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/self/liyazzi.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/06/19/9Bf4AVzSw8Wk63N.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="居云岫"><span class="site-name">居云岫</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Reids基础数据结构（上）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-01-04T13:25:40.000Z" title="发表于 2025-01-04 21:25:40">2025-01-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/learn/">learn</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title="Reids基础数据结构（上）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/01/04/redis/Redis%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%8A%EF%BC%89/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>介绍 redis 中多种基础的数据结构, 包括 sds, adlist, dict, skipList, intset, ziplist, redisObject.</p>
+<h3 id="sds"><a class="markdownIt-Anchor" href="#sds"></a> sds</h3>
+<p>Redis 使用 sds 来处理字符串，用来解决 c 语言中传统字符串的一些限制问题，比如 二进制安全，避免内存频繁重分配，防止字符数组访问越界，实现O(1) 复杂度获取字符串长度，减少频繁内存分配产生的内存碎片。</p>
+<p>Redis 使用 sds 来存储 key，用来作为 AOF 的缓冲区和与客户端通信中的缓冲区，用来实现日志系统的消息，构建协议（RESP）。</p>
+<h4 id="数据结构实现"><a class="markdownIt-Anchor" href="#数据结构实现"></a> 数据结构实现</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">// simple dynamic string header<br>struct sdshdr &#123;<br>    <br>    // buf 中已占用空间的长度<br>    // 通过 len 来确定有效数据范围，保证 &#x27;\0&#x27; 也可以作为数据部分，也就是二进制安全<br>    int len;<br><br>    // buf 中剩余可用空间的长度<br>    int free;<br><br>    // buf.size = len + free + 1<br>    char buf[];<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h4 id="避免内存频繁重分配的方法"><a class="markdownIt-Anchor" href="#避免内存频繁重分配的方法"></a> 避免内存频繁重分配的方法</h4>
+<p>当需要修改字符串长度的操作时，传统的c函数在n次操作下基本会有n次内存重分配操作，sds 通过使用 free 字段和空间预分配、未使用空间惰性删除来避免频繁的内存重分配，优化为至多n次内存重分配。</p>
+<h5 id="空间与分配"><a class="markdownIt-Anchor" href="#空间与分配"></a> 空间与分配</h5>
+<p>策略伪代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">addlen &lt;= nowfree return;<br>oldSds =  getSdsPrt(s);<br>len = oldSds-&gt;len;<br>newlen = addlen + len;<br>if(newlen &lt; PRE) newlen *= 2;<br>else newlen += PRE<br>newSds = zrealloc(oldSds, newlen + 1 + size(sds))<br>newSds-&gt;free = newlen - len;<br></code></pre></td></tr></table></figure>
+<p>策略：当需要扩展 buf 部分时，根据当前 <code>len</code> 与需求大小<code>addlen</code> 的和来决定除了要分配满足 <code>addlen</code> 大小的空间还将要多预分配多少空间大小以便在下次还需要扩展空间时可以适当地命中该次多预分配的空间，从而减少内存重分配次数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">/*<br> *  T = O(N)<br> *  1. 如果 oldlen+ addlen &lt; 1MB 则 newMaxLen =  2 (oldlen + addlen); newFree = newmaxlen - oldlen; 实际上的预扩充操作是<br> *  在caller 调用后使得： sds 在满足 addlen 后，使得 newfree 的大小与 caller 调用后使用掉 addlen这部分空间后 sds 的 len 的大小一样<br> *  2. oldlen+ addlen &gt;= 1MB, 则 newMaxLen = oldlen + addlen + 1MB, caller 使用 addlen 这部分后的 free 固定= 1MB<br> *  总结：<br> *  1. 在当前 sds buf 大小较小时，每次扩充操作使得 下一次在需要扩充的 addlen 阈值（也就是 newfree）为 = oldlen + addlen.<br> *  可以发现 newfree 是根据 sds 的上一次字符使用量 与 该次所需要的addlen 动态生成的，<br> *  如果对 sds 扩充操作需求是较为 连续平均的，将会大大降低整个过程中 引发的内存扩充重分配次数<br> *  2. 在 sds buf 本身已经较大时， 直接使得 newfree = 1MB<br> *  这种预留分配策略使得以前的 n次 concat 操作的 n 次扩容优化为 最多 n 次<br> */<br>sds sdsMakeRoomFor(sds s, size_t addlen) &#123;<br><br>    struct sdshdr *sh, *newsh;<br><br>    // 获取 s 目前 free<br>    size_t free = sdsavail(s);<br><br>    size_t len, newlen;<br><br>    // s 目前的空余空间已经足够，无须再进行扩展，直接返回<br>    if (free &gt;= addlen) return s;<br><br>    // 获取 s 目前已占用空间的长度<br>    len = sdslen(s);<br>    // s 其实是一个字符指针，指向 buf 的起始地址，减去 sdshdr 的大小其实就是指向该结构体起始地址的指针<br>    // 用这种操作来获取给定 buf 所属的结构体指针，很巧妙<br>    sh = (void*) (s-(sizeof(struct sdshdr)));<br><br>    // newlen 为分配后 len 的最小值<br>    newlen = (len+addlen);<br><br>    // 根据新长度，为 s 分配新空间所需的大小<br>    if (newlen &lt; SDS_MAX_PREALLOC)<br>        // 如果新长度小于 SDS_MAX_PREALLOC <br>        // 那么为它分配两倍于所需长度的空间<br>        newlen *= 2;<br>    else<br>        // 否则，分配长度为目前长度加上 SDS_MAX_PREALLOC<br>        newlen += SDS_MAX_PREALLOC;<br>    // T = O(N)<br>    newsh = zrealloc(sh, sizeof(struct sdshdr)+newlen+1);<br><br>    // 内存不足，分配失败，返回<br>    if (newsh == NULL) return NULL;<br><br>    // 更新 sds 的空余长度<br>    newsh-&gt;free = newlen - len;<br><br>    // 返回 sds<br>    return newsh-&gt;buf;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="空间惰性释放"><a class="markdownIt-Anchor" href="#空间惰性释放"></a> 空间惰性释放</h5>
+<p>当需要裁剪 sds 内容时，redis 不会立马释放掉当前不需要的空间，而是通过 <code>len</code> 与 <code>free</code> 字段来实现”逻辑“删除。</p>
+<p><strong>trim</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">sds sdstrim(sds s, const char *cset) &#123;<br>    struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));<br>    char *start, *end, *sp, *ep;<br>    size_t len;<br><br>    sp = start = s;<br>    ep = end = s+sdslen(s)-1;<br><br>    // 双指针寻找左右界限，都是一直移动直到遇到不属于 cset 中的第一个字符<br>    while(sp &lt;= end &amp;&amp; strchr(cset, *sp)) sp++;<br>    while(ep &gt; start &amp;&amp; strchr(cset, *ep)) ep--;<br><br>    len = (sp &gt; ep) ? 0 : ((ep-sp)+1);<br>    <br>    if (sh-&gt;buf != sp) memmove(sh-&gt;buf, sp, len);<br>    <br>    sh-&gt;buf[len] = &#x27;\0&#x27;;<br><br>    sh-&gt;free = sh-&gt;free+(sh-&gt;len-len);<br>    sh-&gt;len = len;<br><br>    return s;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>clear</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">void sdsclear(sds s) &#123;<br><br>    struct sdshdr *sh = (void*) (s-(sizeof(struct sdshdr)));<br><br>    sh-&gt;free += sh-&gt;len;<br>    sh-&gt;len = 0;<br>    <br>    sh-&gt;buf[0] = &#x27;\0&#x27;;<br>&#125;<br></code></pre></td></tr></table></figure>
+<br>
+<h3 id="adlist"><a class="markdownIt-Anchor" href="#adlist"></a> adlist</h3>
+<p>adlist( abstract doubly linked list) 是redis的抽象双端链表，特点 双端，无环，有表头和表尾指针，节点支持多种类型数据。</p>
+<p>adlist 作为基础数据结构，用于 Pub/Sub 订阅模型列表，等待队列，和作为基础数据结构。</p>
+<h4 id="数据结构实现-2"><a class="markdownIt-Anchor" href="#数据结构实现-2"></a> 数据结构实现</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">typedef struct listNode &#123;<br><br>    // 前置节点<br>    struct listNode *prev;<br><br>    // 后置节点<br>    struct listNode *next;<br><br>    // 节点的值，注意类型是 void *，可以存储任意类型数据的指针<br>    void *value;<br><br>&#125; listNode;<br><br>typedef struct list &#123;<br><br>    // 表头节点<br>    listNode *head;<br><br>    // 表尾节点<br>    listNode *tail;<br><br>    // 节点值复制函数<br>    void *(*dup)(void *ptr);<br><br>    // 节点值释放函数<br>    void (*free)(void *ptr);<br><br>    // 节点值对比函数<br>    int (*match)(void *ptr, void *key);<br><br>    // 链表所包含的节点数量<br>    unsigned long len;<br><br>&#125; list;<br></code></pre></td></tr></table></figure>
+<br>
+<h3 id="dict"><a class="markdownIt-Anchor" href="#dict"></a> dict</h3>
+<p>dict，字典是redis的核心数据结构，用来快速查找元素，redis 采用链表来解决哈希冲突，哈希算法使用 MurmurHash2。</p>
+<h4 id="数据结构实现-3"><a class="markdownIt-Anchor" href="#数据结构实现-3"></a> 数据结构实现</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">typedef struct dictEntry &#123;<br>    <br>    // 键<br>    void *key;<br><br>    // 值<br>    union &#123;<br>        void *val;<br>        uint64_t u64;<br>        int64_t s64;<br>    &#125; v;<br><br>    // 指向下个哈希表节点，形成链表<br>    struct dictEntry *next;<br><br>&#125; dictEntry;<br><br><br>/*<br> * 字典类型特定函数<br> */<br>typedef struct dictType &#123;<br><br>    // 计算哈希值的函数<br>    unsigned int (*hashFunction)(const void *key);<br><br>    // 复制键的函数<br>    void *(*keyDup)(void *privdata, const void *key);<br><br>    // 复制值的函数<br>    void *(*valDup)(void *privdata, const void *obj);<br><br>    // 对比键的函数<br>    int (*keyCompare)(void *privdata, const void *key1, const void *key2);<br><br>    // 销毁键的函数<br>    void (*keyDestructor)(void *privdata, void *key);<br>    <br>    // 销毁值的函数<br>    void (*valDestructor)(void *privdata, void *obj);<br><br>&#125; dictType;<br><br><br>/* This is our hash table structure. Every dictionary has two of this as we<br> * implement incremental rehashing, for the old to the new table. */<br>/*<br> * 哈希表<br> *<br> * 每个字典都使用两个哈希表，从而实现渐进式 rehash 。<br> */<br>typedef struct dictht &#123;<br>    <br>    // 哈希表数组<br>    dictEntry **table;<br><br>    // 哈希表大小<br>    unsigned long size;<br>    <br>    // 哈希表大小掩码，用于计算索引值<br>    // 总是等于 size - 1<br>    unsigned long sizemask;<br><br>    // 该哈希表已有节点的数量<br>    unsigned long used;<br><br>&#125; dictht;<br><br>/*<br> * 字典<br> * 定义一组操作(dictType)与数据<br> */<br>typedef struct dict &#123;<br><br>    // 类型特定函数<br>    dictType *type;<br><br>    // 私有数据<br>    void *privdata;<br><br>    // 哈希表，注意有两个哈希表，用以 rehash<br>    dictht ht[2];<br><br>    // rehash 索引<br>    // 当 rehash 不在进行时，值为 -1<br>    int rehashidx; /* rehashing not in progress if rehashidx == -1 */<br><br>    // 目前正在运行的安全迭代器的数量<br>    int iterators; /* number of iterators currently running */<br><br>&#125; dict;<br></code></pre></td></tr></table></figure>
+<br>
+<h4 id="rehash"><a class="markdownIt-Anchor" href="#rehash"></a> rehash</h4>
+<p>目的：为了维持dict中负载因子在一个合理的范围，以便不影响数据库性能，对dict的 hash table 大小进行调整，然后对现有的 k-v 对进行 rehash 到新的 hash table 上。</p>
+<p><strong>rehash 的时机</strong>：</p>
+<ol>
+<li>
+<p>当前 负载因子 &gt;=1 并且没有进行 AOF RDB 的阻塞操作</p>
+</li>
+<li>
+<p>如果当前阻塞，负载因子 &gt;= 5 也会强制进行rehash</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">static int _dictExpandIfNeeded(dict *d)<br>&#123;<br>    /* Incremental rehashing already in progress. Return. */<br>    // 渐进式 rehash 已经在进行了，直接返回<br>    if (dictIsRehashing(d)) return DICT_OK;<br><br>    /* If the hash table is empty expand it to the initial size. */<br>    // 如果字典（的 0 号哈希表）为空，那么创建并返回初始化大小的 0 号哈希表<br>    // T = O(1)<br>    if (d-&gt;ht[0].size == 0) return dictExpand(d, DICT_HT_INITIAL_SIZE);<br><br>    /* If we reached the 1:1 ratio, and we are allowed to resize the hash<br>     * table (global setting) or we should avoid it but the ratio between<br>     * elements/buckets is over the &quot;safe&quot; threshold, we resize doubling<br>     * the number of buckets. */<br>    // 一下两个条件之一为真时，对字典进行扩展<br>    // 1）字典已使用节点数和字典大小之间的比率接近 1：1<br>    //    并且 dict_can_resize 为真<br>    // 2）已使用节点数和字典大小之间的比率超过 dict_force_resize_ratio<br>    if (d-&gt;ht[0].used &gt;= d-&gt;ht[0].size &amp;&amp;<br>        (dict_can_resize ||<br>         d-&gt;ht[0].used/d-&gt;ht[0].size &gt; dict_force_resize_ratio))<br>    &#123;<br>        // 新哈希表的大小至少是目前已使用节点数的两倍<br>        // T = O(N)<br>        return dictExpand(d, d-&gt;ht[0].used*2);<br>    &#125;<br><br>    return DICT_OK;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>关于第二点</strong>：</p>
+<blockquote>
+<p>redis 在进行持久化操作时，使用 fork 子进程来实现，而大多数操作系统采用 COW 来优化子进程的内存使用，在子进程创建时，和父进程拥有相同的内存页，只有当其中一个进程尝试修改内存内容时，操作系统才去先 copy 这部分页面到需要修改的进程空间中，这样避免了在子进程创建时全量 copy 父进程的内存内容，避免了大量不必要的内存开销。所以对于 rehash ，当有 AOF RDB 持久化所创建的子进程时，为了避免一些不必要的 COW 引起的内存开销，rehash 的阈值要求会更严格一些；并且 redish 提供了 <code>dictEnableResize() / dictDisableResize()</code> 来主动控制 rehash 的进行，但需要注意的是当负载因子 &gt;= 5 时，会强制 rehash.</p>
+</blockquote>
+<p><strong>rehash 过程：</strong></p>
+<ol>
+<li>分配新的 hash table -&gt; ht[1], 且新 table 的大小满足：始终是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span>  ，如果是扩容，则是大于等于 ht[0] * 2 的的第一个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span>, 若是收缩，则是大于等于 ht[0]/2 的第一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">2^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span>.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">static unsigned long _dictNextPower(unsigned long size)<br>&#123;<br>    unsigned long i = DICT_HT_INITIAL_SIZE;<br><br>    if (size &gt;= LONG_MAX) return LONG_MAX;<br>    while(1) &#123;<br>        if (i &gt;= size)<br>            return i;<br>        i *= 2;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>渐进式 rehash，逐步迁移数据，分而治之，通常 redis 中 dict 中 k-v 对会非常多，避免一次性迁移导致大量数据的读写会让服务暂停，所以把数据迁移操作分摊在对外部数据的操作之中。每次对 dict 进行增删改查时，除了完成特定的操作外，还会顺带将 <code>rehashidx</code> 所指示的 hash 槽中的所有节点迁移到 ht[1] 中，更新 <code>rehashidx</code>. 需要注意的是，在整个 rehash 过程中，仍然响应受客户端请求，对于查询，则会依次查找 ht[0], ht[1]. 更新与删除类似。对于新增，则只会在 ht[1] 中操作。</li>
+<li>到某一个时间点 <code>rehashidx == ht[0].size</code>，迁移完成，将 <code>rehashidx</code> 设置为 -1，释放 ht[0]的空间，将ht[1] 设置为 ht[0].</li>
+</ol>
+<blockquote>
+<p>rehash 并不是一个由另外的线程或者进程进行的子任务，而是被一个标志位指示：<code>rehashidx != -1</code>，并且不是一个连续不被打断的操作，而是分散于对 dict 的数据操作之中，保证了服务的可用性。</p>
+<p>redis 的主要数据工作模式是基于事件驱动的单线程模型，Linux 上通过 IO多路复用(epoll) 来接受客户端请求。单线程的数据工作模式避免了多线程下的数据竞争，上下文切换和因锁机制导致的性能损失。但后来的版本引入了多线程来使得 网络IO 方面的 处理请求与返回响应被 独立的线程处理，优化了网络 IO 的性能瓶颈。</p>
+</blockquote>
+<br>
+<p>参考：</p>
+<blockquote>
+<ul>
+<li>Redis设计与实现</li>
+</ul>
+</blockquote>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/redis/">redis</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/06/19/9Bf4AVzSw8Wk63N.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/01/05/redis/MurmurHash2%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B/" title="MurmurHash2算法简介"><img class="cover" src="https://s2.loli.net/2022/06/19/t2cSFinrlPIbDGN.jpg" onerror="onerror=null;src='/img/jyx.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MurmurHash2算法简介</div></div></a></div><div class="next-post pull-right"><a href="/2025/01/02/tools/WSL%20%E5%AE%89%E8%A3%85%E5%8F%8A%E5%85%B6%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="WSL 安装及其相关配置"><img class="cover" src="https://s2.loli.net/2022/06/19/t2cSFinrlPIbDGN.jpg" onerror="onerror=null;src='/img/jyx.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WSL 安装及其相关配置</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2025/01/05/redis/MurmurHash2%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B/" title="MurmurHash2算法简介"><img class="cover" src="https://s2.loli.net/2022/06/19/t2cSFinrlPIbDGN.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-05</div><div class="title">MurmurHash2算法简介</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/self/liyazzi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">liyazzi</div><div class="author-info__description">别有根芽，不是人间富贵花。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jyxzwd"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sds"><span class="toc-number">1.</span> <span class="toc-text"> sds</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 数据结构实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E5%86%85%E5%AD%98%E9%A2%91%E7%B9%81%E9%87%8D%E5%88%86%E9%85%8D%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text"> 避免内存频繁重分配的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E4%B8%8E%E5%88%86%E9%85%8D"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 空间与分配</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%83%B0%E6%80%A7%E9%87%8A%E6%94%BE"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 空间惰性释放</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adlist"><span class="toc-number">2.</span> <span class="toc-text"> adlist</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">2.1.</span> <span class="toc-text"> 数据结构实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dict"><span class="toc-number">3.</span> <span class="toc-text"> dict</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0-3"><span class="toc-number">3.1.</span> <span class="toc-text"> 数据结构实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rehash"><span class="toc-number">3.2.</span> <span class="toc-text"> rehash</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/01/06/redis/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E4%B8%8E%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9/" title="一致性哈希与虚拟节点"><img src="https://s2.loli.net/2022/06/19/t2cSFinrlPIbDGN.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="一致性哈希与虚拟节点"/></a><div class="content"><a class="title" href="/2025/01/06/redis/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E4%B8%8E%E8%99%9A%E6%8B%9F%E8%8A%82%E7%82%B9/" title="一致性哈希与虚拟节点">一致性哈希与虚拟节点</a><time datetime="2025-01-06T09:18:54.000Z" title="发表于 2025-01-06 17:18:54">2025-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/05/redis/MurmurHash2%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B/" title="MurmurHash2算法简介"><img src="https://s2.loli.net/2022/06/19/t2cSFinrlPIbDGN.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="MurmurHash2算法简介"/></a><div class="content"><a class="title" href="/2025/01/05/redis/MurmurHash2%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B/" title="MurmurHash2算法简介">MurmurHash2算法简介</a><time datetime="2025-01-05T14:27:52.000Z" title="发表于 2025-01-05 22:27:52">2025-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/04/redis/Redis%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%8A%EF%BC%89/" title="Reids基础数据结构（上）"><img src="https://s2.loli.net/2022/06/19/9Bf4AVzSw8Wk63N.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="Reids基础数据结构（上）"/></a><div class="content"><a class="title" href="/2025/01/04/redis/Redis%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%8A%EF%BC%89/" title="Reids基础数据结构（上）">Reids基础数据结构（上）</a><time datetime="2025-01-04T13:25:40.000Z" title="发表于 2025-01-04 21:25:40">2025-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/01/02/tools/WSL%20%E5%AE%89%E8%A3%85%E5%8F%8A%E5%85%B6%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="WSL 安装及其相关配置"><img src="https://s2.loli.net/2022/06/19/t2cSFinrlPIbDGN.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="WSL 安装及其相关配置"/></a><div class="content"><a class="title" href="/2025/01/02/tools/WSL%20%E5%AE%89%E8%A3%85%E5%8F%8A%E5%85%B6%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="WSL 安装及其相关配置">WSL 安装及其相关配置</a><time datetime="2025-01-02T12:43:54.000Z" title="发表于 2025-01-02 20:43:54">2025-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/10/java-learn/classloader(1)/" title="classloader(1)"><img src="https://s2.loli.net/2022/06/19/eNks3wKY7pluHdv.jpg" onerror="this.onerror=null;this.src='/img/jyx.jpg'" alt="classloader(1)"/></a><div class="content"><a class="title" href="/2024/05/10/java-learn/classloader(1)/" title="classloader(1)">classloader(1)</a><time datetime="2024-05-10T02:27:52.000Z" title="发表于 2024-05-10 10:27:52">2024-05-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2022/06/19/9Bf4AVzSw8Wk63N.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By liyazzi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br/>
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备2022010206号</a></div><div class="footer_custom_text">在那以前，要多想。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://jyx-twikoo.netlify.app/.netlify/functions/twikoo',
+      region: '',
+      placeholder: '昵称栏输入QQ号会自动获取并补全 QQ昵称、QQ头像和QQ邮箱哦，试一试吧！',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://jyx-twikoo.netlify.app/.netlify/functions/twikoo',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    }
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><script src="/js/music.js"></script><script src="/js/twikoomy.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
